@@ -112,10 +112,8 @@ function fillEdges() {
     }
 }
 
-// Create example reactor
+// Create reactor from genome's data
 function createReactor(genome) {
-    fillModerator();
-
     for (var x = 0; x < nRows; x++) {
         for (var y = 0; y < nCols; y++) {
             grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y);
@@ -131,6 +129,7 @@ function createReactor(genome) {
 //////////////////////////
 
 
+// Random choice from array
 function choose(choices) {
     var index = floor(random() * choices.length);
     return choices[index];
