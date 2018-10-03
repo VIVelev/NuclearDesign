@@ -1,11 +1,13 @@
 class Genome {
     constructor(simulation) {
         this.simulation = simulation;
+
         this.grid = new Array(this.simulation.nCols);
-        
         for (var i = 0; i < this.simulation.nCols; i++) {
             this.grid[i] = new Array(this.simulation.nRows);
         }
+
+        this.fitness = 0;
     }
 
     randomInit() {
@@ -18,6 +20,7 @@ class Genome {
 
     evaluate() {
         // TODO: Come up with a good fitness metric!
+        this.fitness = 0;
     }
 
     crossover(other) {
