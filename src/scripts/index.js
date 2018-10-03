@@ -2,6 +2,7 @@
 //   Generation Session   //
 ///////////////////////////
 
+
 pop = null;
 function runGenerationSession(maxGeneration=50) {
     pop = new Population(
@@ -18,7 +19,7 @@ function runGenerationSession(maxGeneration=50) {
 
 
 //////////////////////////////////
-//  p5.js built-in functions    //
+//           helpers            //
 //////////////////////////////////
 
 
@@ -40,6 +41,12 @@ function preview() {
     sim = new Simulation();
     sim.createReactorFromGenome(pop.getBestGenome());
 }
+
+
+//////////////////////////////////
+//  p5.js built-in functions    //
+//////////////////////////////////
+
 
 function setup() {
     displayConfig();

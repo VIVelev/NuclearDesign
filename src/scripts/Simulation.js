@@ -184,19 +184,19 @@ class Simulation {
         this.updateStats();
     }
 
-    evaluateGenome(genome, TICKS=100) {
+    evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
 
         var t = 1;
         var fitness = 0;
 
-        while (t < TICKS) {
+        while (t < EVALUATION_LENGTH) {
             this.update();
 
-            fitness += this.getMeanHeat();
+            fitness += this.getTotalHeat();
             t++;
         }
 
-        return fitness / TICKS;
+        return 1 / fitness;
     }
 }
