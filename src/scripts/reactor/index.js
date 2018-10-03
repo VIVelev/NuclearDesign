@@ -191,33 +191,16 @@ function removeNeutron(n) {
 function updateStats() {
     ncount = document.getElementById("ncount");
     ncount.innerHTML = "Neutron count: " + neutrons.length;
-    document.getElementById("params").innerHTML =
-    "<li>ctrlRodChance<//li>" + CONFIG.controlRodChance +
-    "<li>ctrlRodCool<//li>" + CONFIG.controlRodCool +
-    "<li>ctrlRodHeat<//li>" + CONFIG.controlRodHeat +
-    "<li style='padding-top: 10px'>fuelChance<//li>" + CONFIG.fuelChance +
-    "<li>fuelCool<//li>" + CONFIG.fuelCool +
-    "<li>fuelHeat<//li>" + CONFIG.fuelHeat +
-    "<li>fuelSpontHeat<//li>" + CONFIG.fuelSpontHeat +
-    "<li>fuelSpontChance<//li>" + CONFIG.fuelSpontChance +
-    "<li style='padding-top: 10px'>heatMax<//li>" + CONFIG.heatMax +
-    "<li>heatTransfer<//li>" + CONFIG.heatTransfer +
-    "<li style='padding-top: 10px'>moderatorCool<//li>" + CONFIG.moderatorCool +
-    "<li style='padding-top: 10px'>nCardDir<//li>" + CONFIG.nCardDir +
-    "<li>nSpawnMin<//li>" + CONFIG.nSpawnMin +
-    "<li>nSpawnMax<//li>" + CONFIG.nSpawnMax +
-    "<li>nSpeedMin<//li>" + CONFIG.nSpeedMin +
-    "<li>nSpeedMax<//li>" + CONFIG.nSpeedMax +
-    "<li style='padding-top: 10px'>reflectorCool<//li>" + CONFIG.reflectorCool +
-    "<li>reflectorHeat<//li>" + CONFIG.reflectorHeat +
-    "<li style='padding-top: 10px'>renderGlow<//li>" + CONFIG.renderGlow +
-    "<li>wallCool<//li>" + CONFIG.wallCool;
+
+    ncount = document.getElementById("meanHeat");
+    ncount.innerHTML = "Mean heat: " + getTotalHeat() / nRows*nCols;
 }
 
 
 //////////////////////////////////
 //  p5.js built-in functions    //
 //////////////////////////////////
+
 
 function setup() {
     if (visualize) {
