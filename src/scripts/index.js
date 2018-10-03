@@ -2,14 +2,14 @@
 //   Generation Session   //
 ///////////////////////////
 
-
-function runGenerationSession(maxGeneration=10000) {
+pop = null;
+function runGenerationSession(maxGeneration=50) {
     pop = new Population(
         new Simulation(visualize=false)
     );
-    pop.initRandomPopulation()
 
-    while (pop.generation < maxGeneration) {
+    pop.initRandomPopulation();
+    while (pop.generation <= maxGeneration) {
         pop.evaluatePopulation();
         pop.printStatistics();
         pop.generateNewPopulation();
@@ -34,10 +34,22 @@ function displayConfig() {
     }
 }
 
+function preview() {
+    canPreview = true;
+
+    sim = new Simulation();
+    sim.createReactorFromGenome(pop.getBestGenome());
+}
+
 function setup() {
     displayConfig();
+
+    canPreview = false;
+    sim = null;
 }
 
 function draw() {
-    // TODO
+    if (canPreview) {
+        sim.update();
+    }
 }

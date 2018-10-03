@@ -56,8 +56,8 @@ class Simulation {
             this.canvas.parent("reactor-container");
         }
 
-        this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
-        this.nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
+        this.nRows = Math.floor(RENDER.canvasHeight / RENDER.cellSize);
+        this.nCols = Math.floor(RENDER.canvasWidth / RENDER.cellSize);
     
         this.grid = new Array(this.nCols);
         for (var i = 0; i < this.nCols; i++) {

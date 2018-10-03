@@ -17,7 +17,7 @@ class Genome {
     randomInit() {
         for (var x = 0; x < this.simulation.nCols; x++) {
             for (var y = 0; y < this.simulation.nRows; y++) {
-                this.grid[x][y] = choose(['C', 'F', 'M', 'H', 'V', 'W']);
+                this.grid[x][y] = choose(['C', 'F', 'M']);
             }
         }
     }

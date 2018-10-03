@@ -86,4 +86,17 @@ class Population {
         return bestFitness;
     }
 
+    getBestGenome() {
+        var bestGenome = this.population[0];
+        var bestFitness = 0;
+
+        for (var i = 0; i < POP_SIZE; i++) {
+            if (bestFitness < this.population[i].fitness) {
+                bestFitness = this.population[i].fitness;
+                bestGenome = this.population[i];
+            }
+        } 
+
+        return bestGenome;
+    }
 }
