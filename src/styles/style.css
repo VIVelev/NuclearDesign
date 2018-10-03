@@ -11,4 +11,7 @@ main {
 
 ul {
     list-style-type: none;
+
+.param {
+  padding-top: 10px;
 }

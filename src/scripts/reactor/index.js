@@ -192,8 +192,8 @@ function updateStats() {
     ncount = document.getElementById("ncount");
     ncount.innerHTML = "Neutron count: " + neutrons.length;
 
-    ncount = document.getElementById("meanHeat");
-    ncount.innerHTML = "Mean heat: " + getTotalHeat() / nRows*nCols;
+    meanHeat = document.getElementById("meanHeat");
+    meanHeat.innerHTML = "Mean heat: " + getTotalHeat() / nRows*nCols;
 }
 
 
@@ -203,6 +203,16 @@ function updateStats() {
 
 
 function setup() {
+    params = document.getElementById("params");
+    params.innerHTML = "";
+    
+    for (var param in CONFIG) {
+      newItem = document.createElement("li");
+      newItem.innerHTML = param + ": " + CONFIG[param];
+      newItem.setAttribute("class", "param");
+      params.appendChild(newItem);
+    }
+
     if (visualize) {
         initCanvas();
     }
@@ -244,6 +254,6 @@ function draw() {
             neutrons[i].display();
         }
     }
-    
+
     updateStats();
 }
