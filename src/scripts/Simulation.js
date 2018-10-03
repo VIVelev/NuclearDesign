@@ -1,13 +1,13 @@
 // Configuration
 const CONFIG = {
-    controlRodChance: 50,   // chance for control rod to absorb a neutron
+    controlRodChance: 0.5,  // chance for control rod to absorb a neutron
     controlRodCool: 1,      // control rod cooling per tick
     controlRodHeat: 200,    // heat generated per collision
 
-    fuelChance: 7,          // chance for fuel rod to absorb a neutron
+    fuelChance: 0.07,       // chance for fuel rod to absorb a neutron
     fuelCool: 1,            // fuel rod cooling per tick
     fuelHeat: 400,          // heat generated per reaction
-    fuelSpontChance: 5,     // chance for spontaneous neutron emission
+    fuelSpontChance: 0.05,     // chance for spontaneous neutron emission
     fuelSpontHeat: 2,       // heat generated per spontaneous neutron emission
 
     heatMax: 10000,         // maximum allowed heat
@@ -56,8 +56,8 @@ class Simulation {
             this.canvas.parent("reactor-container");
         }
 
-        this.nRows = Math.floor(RENDER.canvasHeight / RENDER.cellSize);
-        this.nCols = Math.floor(RENDER.canvasWidth / RENDER.cellSize);
+        this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
+        this.nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
     
         this.grid = new Array(this.nCols);
         for (var i = 0; i < this.nCols; i++) {

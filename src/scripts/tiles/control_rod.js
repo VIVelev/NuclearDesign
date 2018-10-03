@@ -11,7 +11,7 @@ class ControlRod extends Tile {
 
     // Randomly absorb a neutron if control rod is down
     onReact(n) {
-        if ((random(100) < CONFIG.controlRodChance) && (this.simulation.controlRods)) {
+        if ((random(100) / 100 < CONFIG.controlRodChance) && (this.simulation.controlRods)) {
             this.simulation.glow(n.pos.x, n.pos.y, {
                 r: 255,
                 g: 255,

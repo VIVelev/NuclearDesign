@@ -74,7 +74,7 @@ class Tile {
         this.heat -= this.cool;
 
         // Spread heat to adjacent tiles
-        if (!(this.checkHeat())) {
+        if (true) { // (!(this.checkHeat())) {
             var adj = this.adjacent();
 
             for (var i = 0; i < adj.length; i++) {

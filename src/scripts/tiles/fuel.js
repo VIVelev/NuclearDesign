@@ -11,7 +11,7 @@ class Fuel extends Tile {
 
     // Randomly absorb a single neutron and spawn a random number of neutrons
     onReact(n) {
-        if (random(100) < CONFIG.fuelChance) {
+        if (random(100) / 100 < CONFIG.fuelChance) {
             this.simulation.removeNeutron(n);
 
             // Glow
@@ -33,7 +33,7 @@ class Fuel extends Tile {
 
     // Randomly spontaneously generate a neutron
     update() {
-        if (random(100) < CONFIG.fuelSpontChance) {
+        if (random(100) / 100 < CONFIG.fuelSpontChance) {
             var c = this.center();
             this.simulation.glow(c.x, c.y, this.color);
             this.simulation.neutrons.push(new Neutron(c.x, c.y, this.simulation));
