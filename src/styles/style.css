@@ -8,3 +8,7 @@ main {
     left: 35%;
     position: absolute;
 }
+
+.paramItem {
+  padding-top: 10px;
+}
