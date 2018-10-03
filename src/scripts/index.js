@@ -4,22 +4,25 @@
 
 var sim = null;
 
-function setup() {
-    params = document.getElementById("params");
-    params.innerHTML = "";
+function displayConfig() {
+    config = document.getElementById("config");
+    config.innerHTML = "";
     
-    for (var param in CONFIG) {
+    for (var item in CONFIG) {
       newItem = document.createElement("li");
-      newItem.innerHTML = param + ": " + CONFIG[param];
+      newItem.innerHTML = item + ": " + CONFIG[item];
       newItem.setAttribute("class", "param");
-      params.appendChild(newItem);
+      config.appendChild(newItem);
     }
+}
+
+function setup() {
+    displayConfig()
 
     sim = new Simulation(visualize=true)
-    genome = new Genome(sim)
-    sim.createReactor(genome)
 }
 
 function draw() {
-    sim.update()
+    pop = Population(sim);
+    pop.run()
 }

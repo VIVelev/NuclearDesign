@@ -3,7 +3,7 @@ main {
     font-family: 'Oswald', sans-serif;
 }
 
-#sketch-container {
+#reactor-container {
     top: 10%;
     left: 35%;
     position: absolute;
@@ -11,7 +11,4 @@ main {
 
 ul {
     list-style-type: none;
-
-.param {
-  padding-top: 10px;
 }

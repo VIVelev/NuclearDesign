@@ -53,7 +53,7 @@ class Simulation {
         
         if (this.visualize) {
             this.canvas = createCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
-            this.canvas.parent("sketch-container");
+            this.canvas.parent("reactor-container");
         }
 
         this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
