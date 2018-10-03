@@ -28,7 +28,12 @@ class Genome {
         }
     }
 
-    mutate(mutation_rate) {
-        // TODO
+    mutate(mutationRate) {
+        if (mutationRate > floor(random(100)) / 100) {
+            var x = floor(random(this.simulation.nCols+1));
+            var y = floor(random(this.simulation.nRows+1));
+
+            this.grid[x][y] = choose(['C', 'F', 'M', 'H', 'V', 'W']);
+        }
     }
 }
