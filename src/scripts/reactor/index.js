@@ -64,6 +64,7 @@ var neutrons;
 var controlRods = true;
 var heatOverlay = false;
 var visualize = true;
+var train = false;
 
 
 //////////////////////////////
@@ -239,6 +240,6 @@ function draw() {
             neutrons[i].display();
         }
     }
-
+    
     updateStats();
 }
