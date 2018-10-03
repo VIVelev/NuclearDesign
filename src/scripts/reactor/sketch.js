@@ -144,12 +144,6 @@ function defaultReactor() {
     }
 }
 
-
-//////////////////////////////
-//  Misc. custom functions  //
-//////////////////////////////
-
-
 // Ensure that the min value is less than or equal to the max value
 function checkMinMax(min, max) {
     if (min > max) {
@@ -177,46 +171,6 @@ function currentTile(x, y) {
         x: floor(x / RENDER.cellSize),
         y: floor(y / RENDER.cellSize)
     };
-}
-
-// User drawing
-function drawMap() {
-    var c = currentTile(mouseX, mouseY);
-
-    switch (selected) {
-        case "a":
-            grid[c.x][c.y] = new Absorber(c.x, c.y);
-            break;
-        case "b":
-            // TODO
-            break;
-        case "c":
-            grid[c.x][c.y] = new Coolant(c.x, c.y);
-            break;
-        case "f":
-            grid[c.x][c.y] = new Fuel(c.x, c.y);
-            break;
-        case "g":
-            grid[c.x][c.y] = new ControlRod(c.x, c.y);
-            break;
-        case "m":
-            grid[c.x][c.y] = new Moderator(c.x, c.y);
-            break;
-        case "n":
-            neutrons.push(new Neutron(mouseX, mouseY));
-            break;
-        case "w":
-            grid[c.x][c.y] = new Wall(c.x, c.y);
-            break;
-        case ",":
-            grid[c.x][c.y] = new VerticalReflector(c.x, c.y);
-            break;
-        case ".":
-            grid[c.x][c.y] = new HorizontalReflector(c.x, c.y);
-            break;
-    }
-    
-    fillEdges();
 }
 
 // Create a glowing effect
@@ -295,72 +249,6 @@ function draw() {
     }
 
     updateMonitor();
-}
-
-function keyPressed() {
-    switch (keyCode) {
-        case 65:
-            selected = "a";
-            break;
-        case 66:
-            selected = "b";
-            break;
-        case 67:
-            selected = "c";
-            break;
-        case 68:
-            // Toggle cardinal direction neutrons
-            initNeutrons();
-            CONFIG.nCardDir = !CONFIG.nCardDir;
-            break;
-        case 70:
-            selected = "f";
-            break;
-        case 71:
-            selected = "g";
-            break;
-        case 72:
-            // Toggle heat overlay
-            heatOverlay = !heatOverlay;
-            break;
-        case 77:
-            selected = "m";
-            break;
-        case 78:
-            selected = "n";
-            break;
-        case 81:
-            controlRods = !controlRods;
-            break;
-        case 87:
-            selected = "w";
-            break;
-        case 88:
-            initGrid();
-            initNeutrons();
-
-            heatOverlay = false;
-            fillModerator();
-            break;
-        case 90:
-            // Clear all neutrons
-            initNeutrons();
-            break;
-        case 188:
-            selected = ",";
-            break;
-        case 190:
-            selected = ".";
-            break;
-    }
-}
-
-function mouseDragged() {
-    drawMap();
-}
-
-function mousePressed() {
-    drawMap();
 }
 
 // Fit grid to screen

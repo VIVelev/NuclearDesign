@@ -1,89 +1,10 @@
-html, body, #container, main {
-    margin: 0;
-    padding: 0;
-}
-
-#container {
-    background-color: #f2f1ef;
-    color: #22313f;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Oswald', sans-serif;
-    min-height: 100vh;
-}
-
-header {
-    background-color: #87d37c;
-    height: 106px;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 50px;
-    margin: 10px;
-    text-shadow: 2px 2px 0px #26a65b;
-}
-
 main {
-    flex: 1;
-    font-family: 'Open Sans', sans-serif;
-}
-
-#side-panel {
-    float: left;
-}
-
-#monitor {
-    background-color: #96281b;
-    color: #D2D7D3;
-    margin: 20px;
-    padding: 20px;
-    width: 300px;
-}
-
-#monitor ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-#help {
-    background-color: #d2d7d3;
-    margin: 20px;
-    padding: 20px;
-    text-align: justify;
-    width: 300px;
-}
-
-#help ul {
-    list-style: none;
-}
-
-.control {
-    color: #d35400;
-    font-weight: bold;
-    text-shadow: 1px 1px 0px white;
+    color: #22313f;
+    font-family: 'Oswald', sans-serif;
 }
 
 #sketch-container {
     top: 10%;
-    left: 40%;
+    left: 35%;
     position: absolute;
-    margin: 20px 20px 0;
-    overflow: hidden;
-    padding: 0;
-}
-
-hr {
-    clear: both;
-}
-
-h2 {
-    color: #F22613;
-    text-align: center;
-    text-shadow: 1px 1px 0px #22313f;
-}
-
-h3 {
-    text-align: center;
 }
