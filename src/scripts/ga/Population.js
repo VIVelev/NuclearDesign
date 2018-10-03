@@ -3,6 +3,8 @@ class Population {
         this.simulation = simulation;
         this.population = new Array(POP_SIZE);
         this.generation = 0;
+
+        this.parents = new Array(2);
     }
 
     initRandomPopulation() {
@@ -19,7 +21,19 @@ class Population {
     }
 
     selection() {
-        // TODO
+        for (var i = 0; i < this.parents.length; i++) {
+            fitnessSum = this.getFitnessSum();
+            k = floor(random(fitnessSum));
+            j = 0;
+
+            while (k > 0) {
+                k -= this.population[j].fitness;
+                j++;
+            }
+            j--;
+
+            this.parents[i] = this.population[j];
+        }
     }
 
     generateNewPopulation() {
@@ -30,15 +44,20 @@ class Population {
         console.log(`******************** ${this.generation} ********************`);
         console.log(`Mean Fitness: ${this.getMeanFitness()}`);
         console.log(`Best Fitness: ${this.getBestFitness()}`);
+        console.log("\n");
+    }
+
+    getFitnessSum() {
+        var fitnessSum = 0;
+        for (var i = 0; i < POP_SIZE; i++) {
+            fitnessSum += this.population[i].fitness;
+        }
+
+        return fitnessSum;
     }
 
     getMeanFitness() {
-        var meanFitness = 0;
-        for (var i = 0; i < POP_SIZE; i++) {
-            meanFitness += this.population[i].fitness;
-        }
-
-        return meanFitness / POP_SIZE;
+        return this.getFitnessSum() / POP_SIZE;
     }
 
     getBestFitness() {
