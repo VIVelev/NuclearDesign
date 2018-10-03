@@ -29,7 +29,7 @@ const CONFIG = {
     reflectorCool: 1,       // reflector cooling per tick
     reflectorHeat: 100,     // heat generated per reflection
 
-    renderGlow: true,       // render glow effect
+    renderGlow: visualize,       // render glow effect
     wallCool: 1000000       // wall cooling per tick
 };
 
@@ -38,8 +38,18 @@ const RENDER = {
     nSize: 10,          // diameter of each neutron
     gLayers: 5,         // number of layers for glow effect
     gSize: 60,          // diameter of glow effect
-    canvasWidth: 400,   // width of canvas
-    canvasHeight: 400   // height of canvas
+    canvasWidth: 300,   // width of canvas
+    canvasHeight: 300   // height of canvas
+};
+
+const TILE_MAP = {
+    'C': ControlRod,
+    'F': Fuel,
+    'M': Moderator,
+    'H': HorizontalReflector,
+    'V': VerticalReflector,
+    'W': Wall
+
 };
 
 // Variables
@@ -53,6 +63,7 @@ var neutrons;
 
 var controlRods = true;
 var heatOverlay = false;
+var visualize = true;
 
 
 //////////////////////////////
@@ -102,44 +113,16 @@ function fillEdges() {
 }
 
 // Create example reactor
-function defaultReactor() {
+function createReactor(genome) {
     fillModerator();
-    fillEdges();
 
-    grid[1][1] = new Wall(1, 1);
-    grid[1][12] = new Wall(1, 12);
-    grid[12][1] = new Wall(12, 1);
-    grid[12][12] = new Wall(12, 12);
-
-    for (var x = 2; x < 12; x++) {
-        grid[x][1] = new VerticalReflector(x, 1);
-        grid[x][12] = new VerticalReflector(x, 12);
-    }
-
-    for (var y = 2; y < 12; y++) {
-        grid[1][y] = new HorizontalReflector(1, y);
-        grid[12][y] = new HorizontalReflector(12, y);
-    }
-
-    for (var x = 3; x < 11; x++) {
-        for (var y = 3; y < 11; y++) {
-            grid[x][y] = new Fuel(x, y);
+    for (var x = 0; x < nRows; x++) {
+        for (var y = 0; y < nCols; y++) {
+            grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y);
         }
     }
 
-    for (var x = 2; x < 12; x++) {
-        grid[x][2] = new ControlRod(x, 2);
-        grid[x][5] = new ControlRod(x, 5);
-        grid[x][8] = new ControlRod(x, 8);
-        grid[x][11] = new ControlRod(x, 11);
-    }
-
-    for (var y = 3; y < 11; y++) {
-        grid[2][y] = new ControlRod(2, y);
-        grid[5][y] = new ControlRod(5, y);
-        grid[8][y] = new ControlRod(8, y);
-        grid[11][y] = new ControlRod(11, y);
-    }
+    fillEdges();
 }
 
 
@@ -147,6 +130,23 @@ function defaultReactor() {
 //   Utility functions  //
 //////////////////////////
 
+
+function choose(choices) {
+    var index = floor(random() * choices.length);
+    return choices[index];
+}
+
+// Returns the reactor's heat
+function getTotalHeat() {
+    totalHeat = 0;
+    for (var x = 0; x < nRows; x++) {
+        for (var y = 0; y < nCols; y++) {
+            totalHeat += grid[x][y].heat;
+        }
+    }
+
+    return totalHeat;
+}
 
 // Find the nearest tile
 function currentTile(x, y) {
@@ -188,7 +188,7 @@ function removeNeutron(n) {
 }
 
 // Updates the monitor with information
-function updateMonitor() {
+function updateStats() {
     ncount = document.getElementById("ncount");
     ncount.innerHTML = "Neutron count: " + neutrons.length;
 }
@@ -198,22 +198,29 @@ function updateMonitor() {
 //  p5.js built-in functions    //
 //////////////////////////////////
 
-
 function setup() {
-    initCanvas();
+    if (visualize) {
+        initCanvas();
+    }
     initGrid();
     initNeutrons();
 
-    defaultReactor();
+    genome = new Genome(nRows, nCols);
+    createReactor(genome);
 }
 
 function draw() {
-    background(0, 0, 0);
+    if (visualize) {
+        background(0, 0, 0);
+    }
 
     for (var x = 0; x < nRows; x++) {
         for (var y = 0; y < nCols; y++) {
             grid[x][y].update();
-            grid[x][y].display();
+
+            if (visualize) {
+                grid[x][y].display();
+            }
         }
     }
 
@@ -229,26 +236,10 @@ function draw() {
             continue;
         }
 
-        neutrons[i].display();
-    }
-
-    totalHeat = 0
-    for (var x = 0; x < nRows; x++) {
-        for (var y = 0; y < nCols; y++) {
-            totalHeat += grid[x][y]
+        if (visualize) {
+            neutrons[i].display();
         }
     }
 
-    console.log(totalHeat)
-    updateMonitor();
-}
-
-// Fit grid to screen
-function windowResized() {
-    resizeCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
-
-    initGrid();
-    initNeutrons();
-
-    defaultReactor();
+    updateStats();
 }
