@@ -23,8 +23,7 @@ class Genome {
     }
 
     evaluate() {
-        // TODO: Come up with a good fitness metric!
-        this.fitness = 0;
+        this.fitness = this.simulation.evaluateGenome(this);
     }
 
     crossover(other) {

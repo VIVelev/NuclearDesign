@@ -93,7 +93,7 @@ class Simulation {
     }
 
     // Create reactor from genome's data
-    createReactor(genome) {
+    createReactorFromGenome(genome) {
         for (var x = 0; x < this.nCols; x++) {
             for (var y = 0; y < this.nRows; y++) {
                 this.grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y, this);
@@ -182,5 +182,21 @@ class Simulation {
         }
     
         this.updateStats();
+    }
+
+    evaluateGenome(genome, TICKS=600) {
+        this.createReactorFromGenome(genome);
+
+        var t = 1;
+        var fitness = 0;
+
+        while (t < TICKS) {
+            this.update();
+
+            fitness += this.getMeanHeat();
+            t++;
+        }
+
+        return fitness / TICKS;
     }
 }
