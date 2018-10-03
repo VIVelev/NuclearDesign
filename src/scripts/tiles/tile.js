@@ -56,6 +56,9 @@ class Tile {
 
     // Ensure heat doesn't exceed max or min value
     checkHeat() {
+        if (CONFIG.heatMax == -1) {
+            return false;
+        }
         if (this.heat < 0) {
             this.heat = 0;
             return true;
@@ -74,7 +77,7 @@ class Tile {
         this.heat -= this.cool;
 
         // Spread heat to adjacent tiles
-        if (true) { // (!(this.checkHeat())) {
+        if (!(this.checkHeat())) {
             var adj = this.adjacent();
 
             for (var i = 0; i < adj.length; i++) {

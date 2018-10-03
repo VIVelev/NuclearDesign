@@ -10,7 +10,7 @@ const CONFIG = {
     fuelSpontChance: 0.05,     // chance for spontaneous neutron emission
     fuelSpontHeat: 2,       // heat generated per spontaneous neutron emission
 
-    heatMax: 10000,         // maximum allowed heat
+    heatMax: -1,            // maximum allowed heat or -1 for unlimited
     heatTransfer: 0.05,     // percent of heat transferred to adjacent tiles
 
     moderatorCool: 2,       // moderator cooling per tick
