@@ -41,7 +41,6 @@ const RENDER = {
 };
 
 
-// Misc.
 var canvas;
 
 var cols;
@@ -67,8 +66,8 @@ function initCanvas() {
 }
 
 function initGrid() {
-    cols = floor(width / RENDER.cellSize);
-    rows = floor(height / RENDER.cellSize);
+    cols = floor(RENDER.canvasWidth / RENDER.cellSize);
+    rows = floor(RENDER.canvasHeight / RENDER.cellSize);
 
     grid = new Array(cols);
     for (var i = 0; i < cols; i++) {
@@ -87,8 +86,6 @@ function fillModerator() {
             grid[x][y] = new Moderator(x, y);
         }
     }
-
-    fillEdges();
 }
 
 // Fill edges with walls
@@ -107,6 +104,7 @@ function fillEdges() {
 // Create example reactor
 function defaultReactor() {
     fillModerator();
+    fillEdges();
 
     grid[1][1] = new Wall(1, 1);
     grid[1][12] = new Wall(1, 12);
@@ -224,7 +222,7 @@ function setup() {
 }
 
 function draw() {
-    background(210, 215, 211);
+    background(0, 0, 0);
 
     for (var x = 0; x < cols; x++) {
         for (var y = 0; y < rows; y++) {
