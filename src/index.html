@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Nuclear Reactor</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald:500" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <script src="scripts/libraries/p5.min.js" defer></script>
+    <script src="scripts/libraries/p5.dom.min.js" defer></script>
+    
+    <script src="scripts/reactor/neutron.js" defer></script>
+    <script src="scripts/reactor/tile.js" defer></script>
+    <script src="scripts/reactor/absorber.js" defer></script>
+    <script src="scripts/reactor/control_rod.js" defer></script>
+    <script src="scripts/reactor/coolant.js" defer></script>
+    <script src="scripts/reactor/fuel.js" defer></script>
+    <script src="scripts/reactor/moderator.js" defer></script>
+    <script src="scripts/reactor/horizontal_reflector.js" defer></script>
+    <script src="scripts/reactor/vertical_reflector.js" defer></script>
+    <script src="scripts/reactor/wall.js" defer></script>
+    <script src="scripts/reactor/sketch.js" defer></script>
+  </head>
+
+  <body>
+    <div id="container">
+      <main>
+        <div id="side-panel">
+
+          <div id="monitor">
+            <ul>
+              <li id="ncount">Neutron count:</li>
+            </ul>
+          </div>
+
+          <div id="help">
+            <h3>Tiles</h3>
+            <ul>
+              <li><span class="control">A</span> - Neutron absorber</li>
+              <li><span class="control">C</span>  - Coolant cell</li>
+              <li><span class="control">F</span>  - Fuel rod</li>
+              <li><span class="control">G</span>  - Control rod</li>
+              <li><span class="control">M</span>  - Moderator</li>
+              <li><span class="control">W</span> - Wall</li>
+              <li><span class="control">,</span>  - Vertical reflector</li>
+              <li><span class="control">.</span>  - Horizontal reflector</li>
+            </ul>
+
+            <h3>Other Controls</h3>
+            <ul>
+              <li>
+                <span class="control">Left click</span> - Place selected tile
+              </li>
+              <li>
+                <span class="control">D</span> - Toggle movement direction
+              </li>
+              <li><span class="control">H</span> - Toggle heat view</li>
+              <li><span class="control">Q</span> - Toggle control rods</li>
+              <li><span class="control">X</span> - Empty board</li>
+              <li><span class="control">Z</span> - Delete all neutrons</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div id="sketch-container"></div>
+      </main>
+
+    </div>
+  </body>
+</html>
