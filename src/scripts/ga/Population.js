@@ -52,6 +52,7 @@ class Population {
         }
 
         this.population = newPopulation;
+        this.generation++;
     }
 
     printStatistics() {
