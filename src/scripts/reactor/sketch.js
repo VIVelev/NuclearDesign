@@ -40,7 +40,7 @@ const RENDER = {
     canvasHeight: 400   // height of canvas
 };
 
-
+// Variables
 var canvas;
 
 var cols;
@@ -142,6 +142,12 @@ function defaultReactor() {
     }
 }
 
+
+//////////////////////////
+//   Utility functions  //
+//////////////////////////
+
+
 // Ensure that the min value is less than or equal to the max value
 function checkMinMax(min, max) {
     if (min > max) {
@@ -207,6 +213,7 @@ function updateMonitor() {
     ncount = document.getElementById("ncount");
     ncount.innerHTML = "Neutron count: " + neutrons.length;
 }
+
 
 //////////////////////////////////
 //  p5.js built-in functions    //
