@@ -1,6 +1,6 @@
 class Fuel extends Tile {
-    constructor(row, col) {
-        super(row, col);
+    constructor(col, row) {
+        super(col, row);
         this.cool = CONFIG.fuelCool;
         this.color = {
             r: 0,

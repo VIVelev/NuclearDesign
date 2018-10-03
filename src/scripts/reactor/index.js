@@ -56,15 +56,14 @@ const TILE_MAP = {
 // Variables
 var canvas;
 
-var nRows;
 var nCols;
+var nRows;
 
 var grid;
 var neutrons;
 
 var controlRods = true;
 var heatOverlay = false;
-
 
 //////////////////////////////
 //  Resetting simulation    //
@@ -80,9 +79,9 @@ function initGrid() {
     nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
     nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
 
-    grid = new Array(nRows);
-    for (var i = 0; i < nRows; i++) {
-        grid[i] = new Array(nCols);
+    grid = new Array(nCols);
+    for (var i = 0; i < nCols; i++) {
+        grid[i] = new Array(nRows);
     }
 }
 
@@ -92,8 +91,8 @@ function initNeutrons() {
 
 // Fill board with moderator
 function fillModerator() {
-    for (var x = 0; x < nRows; x++) {
-        for (var y = 0; y < nCols; y++) {
+    for (var x = 0; x < nCols; x++) {
+        for (var y = 0; y < nRows; y++) {
             grid[x][y] = new Moderator(x, y);
         }
     }
@@ -101,21 +100,21 @@ function fillModerator() {
 
 // Fill edges with walls
 function fillEdges() {
-    for (var x = 0; x < nRows; x++) {
+    for (var x = 0; x < nCols; x++) {
         grid[x][0] = new Wall(x, 0);
-        grid[x][nCols-1] = new Wall(x, nCols-1);
+        grid[x][nRows-1] = new Wall(x, nRows-1);
     }
 
-    for (var y = 1; y < nCols-1; y++) {
+    for (var y = 1; y < nRows-1; y++) {
         grid[0][y] = new Wall(0, y);
-        grid[nRows-1][y] = new Wall(nRows-1, y);
+        grid[nCols-1][y] = new Wall(nCols-1, y);
     }
 }
 
 // Create reactor from genome's data
 function createReactor(genome) {
-    for (var x = 0; x < nRows; x++) {
-        for (var y = 0; y < nCols; y++) {
+    for (var x = 0; x < nCols; x++) {
+        for (var y = 0; y < nRows; y++) {
             grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y);
         }
     }
@@ -138,8 +137,8 @@ function choose(choices) {
 // Returns the reactor's heat
 function getTotalHeat() {
     totalHeat = 0;
-    for (var x = 0; x < nRows; x++) {
-        for (var y = 0; y < nCols; y++) {
+    for (var x = 0; x < nCols; x++) {
+        for (var y = 0; y < nRows; y++) {
             totalHeat += grid[x][y].heat;
         }
     }
@@ -227,8 +226,8 @@ function draw() {
         background(0, 0, 0);
     }
 
-    for (var x = 0; x < nRows; x++) {
-        for (var y = 0; y < nCols; y++) {
+    for (var x = 0; x < nCols; x++) {
+        for (var y = 0; y < nRows; y++) {
             grid[x][y].update();
 
             if (visualize) {

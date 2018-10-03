@@ -38,8 +38,8 @@ class Neutron {
     // Ensure neutrons that go off the screen are deleted
     checkEdges() {
         return ((this.pos.x < 0) || (this.pos.y < 0) ||
-                (this.pos.x > (nRows * RENDER.cellSize)) ||
-                (this.pos.y > (nCols * RENDER.cellSize)));
+                (this.pos.x > (nCols * RENDER.cellSize)) ||
+                (this.pos.y > (nRows * RENDER.cellSize)));
     }
 
     // Update position of neutron
