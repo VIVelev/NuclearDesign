@@ -1,8 +1,26 @@
+////////////////////////////
+//   Generation Session   //
+///////////////////////////
+
+
+function runGenerationSession(maxGeneration=10000) {
+    pop = new Population(
+        new Simulation(visualize=false)
+    );
+    pop.initRandomPopulation()
+
+    while (pop.generation < maxGeneration) {
+        pop.evaluatePopulation();
+        pop.printStatistics();
+        pop.generateNewPopulation();
+    }
+}
+
+
 //////////////////////////////////
 //  p5.js built-in functions    //
 //////////////////////////////////
 
-var sim = null;
 
 function displayConfig() {
     config = document.getElementById("config");
@@ -17,12 +35,9 @@ function displayConfig() {
 }
 
 function setup() {
-    displayConfig()
-
-    sim = new Simulation(visualize=true)
+    displayConfig();
 }
 
 function draw() {
-    pop = Population(sim);
-    pop.run()
+    // TODO
 }

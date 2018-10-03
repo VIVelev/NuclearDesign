@@ -56,7 +56,7 @@ class Population {
     }
 
     printStatistics() {
-        console.log(`******************** ${this.generation} ********************`);
+        console.log(`******************** Generation ${this.generation} ********************`);
         console.log(`Mean Fitness: ${this.getMeanFitness()}`);
         console.log(`Best Fitness: ${this.getBestFitness()}`);
         console.log("\n");

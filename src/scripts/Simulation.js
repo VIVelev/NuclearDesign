@@ -184,7 +184,7 @@ class Simulation {
         this.updateStats();
     }
 
-    evaluateGenome(genome, TICKS=600) {
+    evaluateGenome(genome, TICKS=100) {
         this.createReactorFromGenome(genome);
 
         var t = 1;
