@@ -51,8 +51,6 @@ var nCols;
 var grid;
 var neutrons;
 
-var selected;
-
 var controlRods = true;
 var heatOverlay = false;
 
@@ -149,27 +147,6 @@ function defaultReactor() {
 //   Utility functions  //
 //////////////////////////
 
-
-// Ensure that the min value is less than or equal to the max value
-function checkMinMax(min, max) {
-    if (min > max) {
-        return max;
-    } else {
-        return min;
-    }
-}
-
-// Ensure value falls within the correct bounds
-function constrain(value, min=0, max=1000000) {
-    value = int(value);
-    if (value < min) {
-        return min;
-    } else if (value > max) {
-        return max;
-    } else {
-        return value;
-    }
-}
 
 // Find the nearest tile
 function currentTile(x, y) {
