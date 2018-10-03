@@ -57,14 +57,15 @@ class Tile {
     // Ensure heat doesn't exceed max or min value
     checkHeat() {
         if (CONFIG.heatMax == -1) {
-            return false;
+            return;
         }
+
         if (this.heat < 0) {
             this.heat = 0;
-            return true;
-        }
-        if (this.heat > CONFIG.heatMax) {
+        }else if (this.heat > CONFIG.heatMax) {
             this.heat = CONFIG.heatMax;
+        }else {
+            //
         }
     }
 
@@ -75,23 +76,22 @@ class Tile {
     // Cooling and distributing heat
     spreadHeat() {
         this.heat -= this.cool;
+        this.checkHeat();
 
         // Spread heat to adjacent tiles
-        if (!(this.checkHeat())) {
-            var adj = this.adjacent();
+        var adj = this.adjacent();
 
-            for (var i = 0; i < adj.length; i++) {
-                var heat = this.heat * CONFIG.heatTransfer;
+        for (var i = 0; i < adj.length; i++) {
+            var heat = this.heat * CONFIG.heatTransfer;
 
-                if (heat < 1) {
-                    this.heat = 0;
-                    adj[i].heat += this.heat;
-                    break;
-                }
-
-                this.heat -= heat;
-                adj[i].heat += heat;
+            if (heat < 1) {
+                this.heat = 0;
+                adj[i].heat += this.heat;
+                break;
             }
+
+            this.heat -= heat;
+            adj[i].heat += heat;
         }
     }
 
