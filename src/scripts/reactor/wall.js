@@ -1,6 +1,6 @@
 class Wall extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(row, col) {
+        super(row, col);
         this.cool = CONFIG.wallCool;
         this.color = {
             r: 0,

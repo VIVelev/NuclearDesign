@@ -5,28 +5,30 @@
 
 // Configuration
 const CONFIG = {
-    absorberChance: 25,     // chance for absorber to absorb a neutron
-    absorberCool: 1,        // absorber cooling per tick
-    absorberHeat: 200,      // heat generated per collision
     controlRodChance: 50,   // chance for control rod to absorb a neutron
     controlRodCool: 1,      // control rod cooling per tick
     controlRodHeat: 200,    // heat generated per collision
-    coolantCool: 400,       // coolant cell cooling per tick
+
     fuelChance: 7,          // chance for fuel rod to absorb a neutron
     fuelCool: 1,            // fuel rod cooling per tick
     fuelHeat: 400,          // heat generated per reaction
     fuelSpontChance: 5,     // chance for spontaneous neutron emission
     fuelSpontHeat: 2,       // heat generated per spontaneous neutron emission
+
     heatMax: 10000,         // maximum allowed heat
     heatTransfer: 0.05,     // percent of heat transferred to adjacent tiles
+
     moderatorCool: 2,       // moderator cooling per tick
+
     nCardDir: false,        // neutrons only travel in cardinal directions
     nSpawnMin: 1,           // min number of neutrons per reaction
     nSpawnMax: 3,           // max number of neutrons per reaction
     nSpeedMin: 1,           // min neutron speed
     nSpeedMax: 10,          // max neutron speed
+
     reflectorCool: 1,       // reflector cooling per tick
     reflectorHeat: 100,     // heat generated per reflection
+
     renderGlow: true,       // render glow effect
     wallCool: 1000000       // wall cooling per tick
 };
@@ -43,8 +45,8 @@ const RENDER = {
 // Variables
 var canvas;
 
-var cols;
-var rows;
+var nRows;
+var nCols;
 
 var grid;
 var neutrons;
@@ -66,12 +68,12 @@ function initCanvas() {
 }
 
 function initGrid() {
-    cols = floor(RENDER.canvasWidth / RENDER.cellSize);
-    rows = floor(RENDER.canvasHeight / RENDER.cellSize);
+    nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
+    nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
 
-    grid = new Array(cols);
-    for (var i = 0; i < cols; i++) {
-        grid[i] = new Array(rows);
+    grid = new Array(nRows);
+    for (var i = 0; i < nRows; i++) {
+        grid[i] = new Array(nCols);
     }
 }
 
@@ -81,8 +83,8 @@ function initNeutrons() {
 
 // Fill board with moderator
 function fillModerator() {
-    for (var x = 0; x < cols; x++) {
-        for (var y = 0; y < rows; y++) {
+    for (var x = 0; x < nRows; x++) {
+        for (var y = 0; y < nCols; y++) {
             grid[x][y] = new Moderator(x, y);
         }
     }
@@ -90,14 +92,14 @@ function fillModerator() {
 
 // Fill edges with walls
 function fillEdges() {
-    for (var x = 0; x < cols; x++) {
+    for (var x = 0; x < nRows; x++) {
         grid[x][0] = new Wall(x, 0);
-        grid[x][rows-1] = new Wall(x, rows-1);
+        grid[x][nCols-1] = new Wall(x, nCols-1);
     }
 
-    for (var y = 1; y < rows-1; y++) {
+    for (var y = 1; y < nCols-1; y++) {
         grid[0][y] = new Wall(0, y);
-        grid[cols-1][y] = new Wall(cols-1, y);
+        grid[nRows-1][y] = new Wall(nRows-1, y);
     }
 }
 
@@ -231,8 +233,8 @@ function setup() {
 function draw() {
     background(0, 0, 0);
 
-    for (var x = 0; x < cols; x++) {
-        for (var y = 0; y < rows; y++) {
+    for (var x = 0; x < nRows; x++) {
+        for (var y = 0; y < nCols; y++) {
             grid[x][y].update();
             grid[x][y].display();
         }
@@ -253,6 +255,14 @@ function draw() {
         neutrons[i].display();
     }
 
+    totalHeat = 0
+    for (var x = 0; x < nRows; x++) {
+        for (var y = 0; y < nCols; y++) {
+            totalHeat += grid[x][y]
+        }
+    }
+
+    console.log(totalHeat)
     updateMonitor();
 }
 

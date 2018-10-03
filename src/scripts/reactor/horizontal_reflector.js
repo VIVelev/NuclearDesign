@@ -1,6 +1,6 @@
 class HorizontalReflector extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(row, col) {
+        super(row, col);
         this.cool = CONFIG.reflectorCool;
         this.color = {
             r: 242,

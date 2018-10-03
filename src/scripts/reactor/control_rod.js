@@ -1,6 +1,6 @@
 class ControlRod extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(row, col) {
+        super(row, col);
         this.cool = CONFIG.controlRodCool;
         this.color = {
             r: 154,

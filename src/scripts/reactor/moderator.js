@@ -1,6 +1,6 @@
 class Moderator extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(row, col) {
+        super(row, col);
         this.cool = CONFIG.moderatorCool;
         this.color = {
             r: 218,

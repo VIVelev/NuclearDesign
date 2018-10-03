@@ -1,6 +1,6 @@
 class Tile {
-    constructor(col, row) {
-        this.pos = new p5.Vector(col, row);
+    constructor(row, col) {
+        this.pos = new p5.Vector(row, col);
         this.heat = 0;
         this.cool = 0;
         this.color = {
@@ -36,10 +36,10 @@ class Tile {
         if (!(this.pos.y === 0)) {
             arr.push(grid[this.pos.x][this.pos.y-1]);
         }
-        if (!(this.pos.x === (cols-1))) {
+        if (!(this.pos.x === (nRows-1))) {
             arr.push(grid[this.pos.x+1][this.pos.y]);
         }
-        if (!(this.pos.y === (rows-1))) {
+        if (!(this.pos.y === (nCols-1))) {
             arr.push(grid[this.pos.x+1][this.pos.y]);
         }
 
