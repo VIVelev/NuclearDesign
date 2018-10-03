@@ -42,7 +42,7 @@ class Genome {
     }
 
     mutate(mutationRate) {
-        if (mutationRate > floor(random(100)) / 100) {
+        if (mutationRate > random(100) / 100) {
             var x = floor(random(this.simulation.nCols));
             var y = floor(random(this.simulation.nRows));
 

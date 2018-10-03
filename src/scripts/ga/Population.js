@@ -23,7 +23,7 @@ class Population {
     parentSelection() {
         for (var i = 0; i < this.parents.length; i++) {
             var fitnessSum = this.getFitnessSum();
-            var k = floor(random(fitnessSum));
+            var k = random(fitnessSum);
             var j = 0;
 
             while (k > 0) {

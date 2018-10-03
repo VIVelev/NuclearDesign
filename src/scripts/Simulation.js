@@ -24,7 +24,7 @@ const CONFIG = {
     reflectorCool: 1,       // reflector cooling per tick
     reflectorHeat: 100,     // heat generated per reflection
 
-    renderGlow: false,       // render glow effect
+    renderGlow: false,      // render glow effect
     wallCool: 1000000       // wall cooling per tick
 };
 
