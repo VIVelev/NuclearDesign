@@ -20,11 +20,11 @@ class Population {
         }
     }
 
-    selection() {
+    parentSelection() {
         for (var i = 0; i < this.parents.length; i++) {
-            fitnessSum = this.getFitnessSum();
-            k = floor(random(fitnessSum));
-            j = 0;
+            var fitnessSum = this.getFitnessSum();
+            var k = floor(random(fitnessSum));
+            var j = 0;
 
             while (k > 0) {
                 k -= this.population[j].fitness;
@@ -37,7 +37,21 @@ class Population {
     }
 
     generateNewPopulation() {
-        // TODO
+        var newPopulation = new Array(POP_SIZE);
+
+        // Directly transfer the top individuals to the next generation
+        for (var i = 0; i < ELITISM; i++) {
+            newPopulation[i] = this.population[i];
+        }
+
+        for (var i = ELITISM; i < POP_SIZE; i++) {
+            this.parentSelection()
+            var offspring = this.parents[0].crossover(this.parents[1]);
+            offspring.mutate(MUTATION_RATE);
+            newPopulation[i] = offspring;
+        }
+
+        this.population = newPopulation;
     }
 
     printStatistics() {

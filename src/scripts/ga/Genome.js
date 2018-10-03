@@ -1,10 +1,14 @@
 class Genome {
-    constructor(simulation) {
+    constructor(simulation, genotype=null) {
         this.simulation = simulation;
 
-        this.grid = new Array(this.simulation.nCols);
-        for (var i = 0; i < this.simulation.nCols; i++) {
-            this.grid[i] = new Array(this.simulation.nRows);
+        if (is(genotype, null)) {
+            this.grid = new Array(this.simulation.nCols);
+            for (var i = 0; i < this.simulation.nCols; i++) {
+                this.grid[i] = new Array(this.simulation.nRows);
+            }
+        }else {
+            this.grid = genotype;
         }
 
         this.fitness = 0;
@@ -24,11 +28,18 @@ class Genome {
     }
 
     crossover(other) {
+        newGrid = new Array(this.simulation.nCols);
+        for (var i = 0; i < this.simulation.nCols; i++) {
+            newGrid[i] = new Array(this.simulation.nRows);
+        }
+
         for (var x = 0; x < this.simulation.nCols; x++) {
             for (var y = 0; y < this.simulation.nRows; y++) {
-                this.grid[x][y] = choose([this.grid[x][y], other.grid[x][y]]);
+                newGrid[x][y] = choose([this.grid[x][y], other.grid[x][y]]);
             }
         }
+
+        return Genome(this.simulation, genotype=newGrid)
     }
 
     mutate(mutationRate) {
