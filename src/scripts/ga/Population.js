@@ -1,9 +1,7 @@
 class Population {
-    constructor(POP_SIZE, MUTATION_RATE) {
-        this.POP_SIZE = POP_SIZE
-        this.MUTATION_RATE = MUTATION_RATE
-
-        this.population = []
+    constructor(simulation) {
+        this.simulation = simulation;
+        this.population = [];
     }
 
     init_population() {
