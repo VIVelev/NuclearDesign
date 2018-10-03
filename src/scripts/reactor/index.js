@@ -2,8 +2,6 @@
 //  Global variables    //
 //////////////////////////
 
-var visualize = true;
-
 // Configuration
 const CONFIG = {
     controlRodChance: 50,   // chance for control rod to absorb a neutron
@@ -30,7 +28,7 @@ const CONFIG = {
     reflectorCool: 1,       // reflector cooling per tick
     reflectorHeat: 100,     // heat generated per reflection
 
-    renderGlow: visualize,       // render glow effect
+    renderGlow: false,       // render glow effect
     wallCool: 1000000       // wall cooling per tick
 };
 
@@ -53,75 +51,143 @@ const TILE_MAP = {
 
 };
 
-// Variables
-var canvas;
-
-var nCols;
-var nRows;
-
-var grid;
-var neutrons;
-
-var controlRods = true;
-var heatOverlay = false;
-
-//////////////////////////////
-//  Resetting simulation    //
-//////////////////////////////
-
-
-function initCanvas() {
-    canvas = createCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
-    canvas.parent("sketch-container");
-}
-
-function initGrid() {
-    nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
-    nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
-
-    grid = new Array(nCols);
-    for (var i = 0; i < nCols; i++) {
-        grid[i] = new Array(nRows);
-    }
-}
-
-function initNeutrons() {
-    neutrons = [];
-}
-
-// Fill board with moderator
-function fillModerator() {
-    for (var x = 0; x < nCols; x++) {
-        for (var y = 0; y < nRows; y++) {
-            grid[x][y] = new Moderator(x, y);
+class Simulation {
+    constructor(visualize=true) {
+        this.visualize = visualize
+        
+        if (this.visualize) {
+            this.canvas = createCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
+            this.canvas.parent("sketch-container");
         }
-    }
-}
 
-// Fill edges with walls
-function fillEdges() {
-    for (var x = 0; x < nCols; x++) {
-        grid[x][0] = new Wall(x, 0);
-        grid[x][nRows-1] = new Wall(x, nRows-1);
+        this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
+        this.nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
+    
+        this.grid = new Array(this.nCols);
+        for (var i = 0; i < this.nCols; i++) {
+            this.grid[i] = new Array(this.nRows);
+        }
+
+        this.neutrons = [];
+
+        this.controlRods = true;
+        this.heatOverlay = false;
     }
 
-    for (var y = 1; y < nRows-1; y++) {
-        grid[0][y] = new Wall(0, y);
-        grid[nCols-1][y] = new Wall(nCols-1, y);
-    }
-}
-
-// Create reactor from genome's data
-function createReactor(genome) {
-    for (var x = 0; x < nCols; x++) {
-        for (var y = 0; y < nRows; y++) {
-            grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y);
+    // Fill board with moderator
+    fillModerator() {
+        for (var x = 0; x < this.nCols; x++) {
+            for (var y = 0; y < this.nRows; y++) {
+                this.grid[x][y] = new Moderator(x, y, this);
+            }
         }
     }
 
-    fillEdges();
-}
+    // Fill edges with walls
+    fillEdges() {
+        for (var x = 0; x < this.nCols; x++) {
+            this.grid[x][0] = new Wall(x, 0, this);
+            this.grid[x][this.nRows-1] = new Wall(x, this.nRows-1, this);
+        }
 
+        for (var y = 1; y < this.nRows-1; y++) {
+            this.grid[0][y] = new Wall(0, y, this);
+            this.grid[this.nCols-1][y] = new Wall(this.nCols-1, y, this);
+        }
+    }
+
+    // Create reactor from genome's data
+    createReactor(genome) {
+        for (var x = 0; x < this.nCols; x++) {
+            for (var y = 0; y < this.nRows; y++) {
+                this.grid[x][y] = new TILE_MAP[genome.grid[x][y]](x, y, this);
+            }
+        }
+
+        this.fillEdges();
+    }
+
+    // Returns the reactor's heat
+    getTotalHeat() {
+        var totalHeat = 0;
+        for (var x = 0; x < this.nCols; x++) {
+            for (var y = 0; y < this.nRows; y++) {
+                totalHeat += this.grid[x][y].heat;
+            }
+        }
+
+        return totalHeat;
+    }
+
+    getMeanHeat() {
+        return this.getTotalHeat() / this.nCols * this.nRows;
+    }
+
+    // Create a glowing effect
+    glow(x, y, color) {
+        if ((CONFIG.renderGlow) && !(this.heatOverlay)) {
+            for (var i = 0; i < RENDER.gLayers; i++) {
+                fill(color.r, color.g, color.b, round(255/RENDER.gLayers));
+                noStroke();
+                ellipse(x, y, (RENDER.gSize/RENDER.gLayers)*(i+1),
+                        (RENDER.gSize/RENDER.gLayers)*(i+1));
+            }
+        }
+    }
+
+    // Deletes a neutron
+    removeNeutron(n) {
+        var index = this.neutrons.indexOf(n);
+
+        if (index > -1) {
+            this.neutrons.splice(index, 1);
+        }
+    }
+
+    // Updates the monitor with information
+    updateStats() {
+        var ncount = document.getElementById("ncount");
+        ncount.innerHTML = "Neutron count: " + this.neutrons.length;
+
+        var meanHeat = document.getElementById("meanHeat");
+        meanHeat.innerHTML = "Mean heat: " + this.getMeanHeat();
+    }
+
+    update() {
+        if (this.visualize) {
+            background(0, 0, 0);
+        }
+    
+        for (var x = 0; x < this.nCols; x++) {
+            for (var y = 0; y < this.nRows; y++) {
+                this.grid[x][y].update();
+    
+                if (this.visualize) {
+                    this.grid[x][y].display();
+                }
+            }
+        }
+    
+        for (var i = 0; i < this.neutrons.length; i++) {
+            this.neutrons[i].update();
+            if (this.neutrons[i].checkEdges()) {
+                this.removeNeutron(neutrons[i]);
+                continue;
+            }
+    
+            var c = currentTile(this.neutrons[i].pos.x, this.neutrons[i].pos.y);
+            if (this.grid[c.x][c.y].onReact(this.neutrons[i])) {
+                continue;
+            }
+    
+            if (this.visualize) {
+                this.neutrons[i].display();
+            }
+        }
+    
+        this.updateStats();
+    }
+}
 
 //////////////////////////
 //   Utility functions  //
@@ -134,36 +200,12 @@ function choose(choices) {
     return choices[index];
 }
 
-// Returns the reactor's heat
-function getTotalHeat() {
-    totalHeat = 0;
-    for (var x = 0; x < nCols; x++) {
-        for (var y = 0; y < nRows; y++) {
-            totalHeat += grid[x][y].heat;
-        }
-    }
-
-    return totalHeat;
-}
-
 // Find the nearest tile
 function currentTile(x, y) {
     return {
         x: floor(x / RENDER.cellSize),
         y: floor(y / RENDER.cellSize)
     };
-}
-
-// Create a glowing effect
-function glow(x, y, color) {
-    if ((CONFIG.renderGlow) && !(heatOverlay)) {
-        for (var i = 0; i < RENDER.gLayers; i++) {
-            fill(color.r, color.g, color.b, round(255/RENDER.gLayers));
-            noStroke();
-            ellipse(x, y, (RENDER.gSize/RENDER.gLayers)*(i+1),
-                    (RENDER.gSize/RENDER.gLayers)*(i+1));
-        }
-    }
 }
 
 // Returns 1 or -1
@@ -176,29 +218,12 @@ function randVelocity() {
     return random(CONFIG.nSpeedMin, CONFIG.nSpeedMax) * plusOrMinus();
 }
 
-// Deletes a neutron
-function removeNeutron(n) {
-    var index = neutrons.indexOf(n);
-
-    if (index > -1) {
-        neutrons.splice(index, 1);
-    }
-}
-
-// Updates the monitor with information
-function updateStats() {
-    ncount = document.getElementById("ncount");
-    ncount.innerHTML = "Neutron count: " + neutrons.length;
-
-    meanHeat = document.getElementById("meanHeat");
-    meanHeat.innerHTML = "Mean heat: " + getTotalHeat() / nRows*nCols;
-}
-
 
 //////////////////////////////////
 //  p5.js built-in functions    //
 //////////////////////////////////
 
+var sim = null;
 
 function setup() {
     params = document.getElementById("params");
@@ -211,48 +236,11 @@ function setup() {
       params.appendChild(newItem);
     }
 
-    if (visualize) {
-        initCanvas();
-    }
-    initGrid();
-    initNeutrons();
-
-    genome = new Genome(nRows, nCols);
-    console.log(genome.grid)
-    createReactor(genome);
+    sim = new Simulation(visualize=true)
+    genome = new Genome(sim)
+    sim.createReactor(genome)
 }
 
 function draw() {
-    if (visualize) {
-        background(0, 0, 0);
-    }
-
-    for (var x = 0; x < nCols; x++) {
-        for (var y = 0; y < nRows; y++) {
-            grid[x][y].update();
-
-            if (visualize) {
-                grid[x][y].display();
-            }
-        }
-    }
-
-    for (var i = 0; i < neutrons.length; i++) {
-        neutrons[i].update();
-        if (neutrons[i].checkEdges()) {
-            removeNeutron(neutrons[i]);
-            continue;
-        }
-
-        var c = currentTile(neutrons[i].pos.x, neutrons[i].pos.y);
-        if (grid[c.x][c.y].onReact(neutrons[i])) {
-            continue;
-        }
-
-        if (visualize) {
-            neutrons[i].display();
-        }
-    }
-
-    updateStats();
+    sim.update()
 }

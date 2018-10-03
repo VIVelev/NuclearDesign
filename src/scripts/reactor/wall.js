@@ -11,7 +11,7 @@ class Wall extends Tile {
 
     // Absorb a neutron 100% of the time
     onReact(n) {
-        glow(n.pos.x, n.pos.y, {
+        this.simulation.glow(n.pos.x, n.pos.y, {
             r: 255,
             g: 255,
             b: 255

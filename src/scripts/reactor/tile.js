@@ -37,10 +37,10 @@ class Tile {
         if (!(this.pos.y === 0)) {
             arr.push(this.simulation.grid[this.pos.x][this.pos.y-1]);
         }
-        if (!(this.pos.x === (nCols-1))) {
+        if (!(this.pos.x === (this.simulation.nCols-1))) {
             arr.push(this.simulation.grid[this.pos.x+1][this.pos.y]);
         }
-        if (!(this.pos.y === (nRows-1))) {
+        if (!(this.pos.y === (this.simulation.nRows-1))) {
             arr.push(this.simulation.grid[this.pos.x+1][this.pos.y]);
         }
 

@@ -16,7 +16,7 @@ class Fuel extends Tile {
 
             // Glow
             var c = this.center();
-            glow(c.x, c.y, this.color);
+            this.simulation.glow(c.x, c.y, this.color);
 
             // Spawn neutrons
             var spawnCount = round(random(CONFIG.nSpawnMin,
@@ -35,7 +35,7 @@ class Fuel extends Tile {
     update() {
         if (random(100) < CONFIG.fuelSpontChance) {
             var c = this.center();
-            glow(c.x, c.y, this.color);
+            this.simulation.glow(c.x, c.y, this.color);
             this.simulation.neutrons.push(new Neutron(c.x, c.y, this.simulation));
             this.heat += CONFIG.fuelSpontHeat;
         }
