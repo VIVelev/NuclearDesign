@@ -1,6 +1,6 @@
 class ControlRod extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(col, row, simulation) {
+        super(col, row, simulation);
         this.cool = CONFIG.controlRodCool;
         this.color = {
             r: 154,
@@ -11,20 +11,20 @@ class ControlRod extends Tile {
 
     // Randomly absorb a neutron if control rod is down
     onReact(n) {
-        if ((random(100) < CONFIG.controlRodChance) && (controlRods)) {
+        if ((random(100) < CONFIG.controlRodChance) && (this.simulation.controlRods)) {
             glow(n.pos.x, n.pos.y, {
                 r: 255,
                 g: 255,
                 b: 255
             });
-            removeNeutron(n);
+            this.simulation.removeNeutron(n);
             this.heat += CONFIG.controlRodHeat;
             return true;
         }
     }
 
     update() {
-        if (controlRods) {
+        if (this.simulation.controlRods) {
             this.color = {
                 r: 108,
                 g: 122,

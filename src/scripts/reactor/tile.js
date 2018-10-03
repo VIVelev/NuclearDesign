@@ -1,6 +1,7 @@
 class Tile {
-    constructor(col, row) {
+    constructor(col, row, simulation) {
         this.pos = new p5.Vector(col, row);
+        this.simulation = simulation
         this.heat = 0;
         this.cool = 0;
         this.color = {
@@ -13,7 +14,7 @@ class Tile {
     // Display tile on the screen
     display() {
         // Show heat overlay
-        if (heatOverlay) {
+        if (this.simulation.heatOverlay) {
             fill(this.heat/CONFIG.heatMax*255, 0, 0);
             stroke(0);
             rect(this.pos.x*RENDER.cellSize, this.pos.y*RENDER.cellSize,
@@ -31,16 +32,16 @@ class Tile {
         var arr = [];
 
         if (!(this.pos.x === 0)) {
-            arr.push(grid[this.pos.x-1][this.pos.y]);
+            arr.push(this.simulation.grid[this.pos.x-1][this.pos.y]);
         }
         if (!(this.pos.y === 0)) {
-            arr.push(grid[this.pos.x][this.pos.y-1]);
+            arr.push(this.simulation.grid[this.pos.x][this.pos.y-1]);
         }
         if (!(this.pos.x === (nCols-1))) {
-            arr.push(grid[this.pos.x+1][this.pos.y]);
+            arr.push(this.simulation.grid[this.pos.x+1][this.pos.y]);
         }
         if (!(this.pos.y === (nRows-1))) {
-            arr.push(grid[this.pos.x+1][this.pos.y]);
+            arr.push(this.simulation.grid[this.pos.x+1][this.pos.y]);
         }
 
         return shuffle(arr);

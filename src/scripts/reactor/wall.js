@@ -1,6 +1,6 @@
 class Wall extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(col, row, simulation) {
+        super(col, row, simulation);
         this.cool = CONFIG.wallCool;
         this.color = {
             r: 0,
@@ -16,7 +16,7 @@ class Wall extends Tile {
             g: 255,
             b: 255
         });
-        removeNeutron(n);
+        this.simulation.removeNeutron(n);
         return true;
     }
 

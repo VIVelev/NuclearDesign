@@ -1,6 +1,6 @@
 class Fuel extends Tile {
-    constructor(col, row) {
-        super(col, row);
+    constructor(col, row, simulation) {
+        super(col, row, simulation);
         this.cool = CONFIG.fuelCool;
         this.color = {
             r: 0,
@@ -12,7 +12,7 @@ class Fuel extends Tile {
     // Randomly absorb a single neutron and spawn a random number of neutrons
     onReact(n) {
         if (random(100) < CONFIG.fuelChance) {
-            removeNeutron(n);
+            this.simulation.removeNeutron(n);
 
             // Glow
             var c = this.center();
@@ -22,7 +22,7 @@ class Fuel extends Tile {
             var spawnCount = round(random(CONFIG.nSpawnMin,
                                           CONFIG.nSpawnMax));
             for (var i = 0; i < spawnCount; i++) {
-                neutrons.push(new Neutron(c.x, c.y));
+                this.simulation.neutrons.push(new Neutron(c.x, c.y, this.simulation));
             }
 
             this.heat += CONFIG.fuelHeat;
@@ -36,7 +36,7 @@ class Fuel extends Tile {
         if (random(100) < CONFIG.fuelSpontChance) {
             var c = this.center();
             glow(c.x, c.y, this.color);
-            neutrons.push(new Neutron(c.x, c.y));
+            this.simulation.neutrons.push(new Neutron(c.x, c.y, this.simulation));
             this.heat += CONFIG.fuelSpontHeat;
         }
         

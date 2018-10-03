@@ -1,6 +1,7 @@
 class Neutron {
-    constructor(x, y) {
+    constructor(x, y, simulation) {
         this.pos = new p5.Vector(x, y);
+        this.simulation = simulation
         this.counter = 0;
 
         if (CONFIG.nCardDir) {
@@ -24,7 +25,7 @@ class Neutron {
 
     // Display neutron on the screen
     display() {
-        if (heatOverlay) {
+        if (this.simulation.heatOverlay) {
             fill(255, 0, 0, 100);
             noStroke();
         } else {
@@ -38,8 +39,8 @@ class Neutron {
     // Ensure neutrons that go off the screen are deleted
     checkEdges() {
         return ((this.pos.x < 0) || (this.pos.y < 0) ||
-                (this.pos.x > (nCols * RENDER.cellSize)) ||
-                (this.pos.y > (nRows * RENDER.cellSize)));
+                (this.pos.x > (this.simulation.nCols * RENDER.cellSize)) ||
+                (this.pos.y > (this.simulation.nRows * RENDER.cellSize)));
     }
 
     // Update position of neutron

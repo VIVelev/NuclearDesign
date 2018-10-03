@@ -218,6 +218,7 @@ function setup() {
     initNeutrons();
 
     genome = new Genome(nRows, nCols);
+    console.log(genome.grid)
     createReactor(genome);
 }
 
