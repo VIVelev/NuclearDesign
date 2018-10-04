@@ -3,7 +3,7 @@ const CONFIG = {
 
     ///////////////////////////////////////
     ///     Simulation Configuration    ///
-    //////////////////////////////////////
+    ///////////////////////////////////////
 
 
     controlRodChance: 0.5,  // chance for control rod to absorb a neutron
@@ -36,7 +36,7 @@ const CONFIG = {
 
     ///////////////////////////////////////
     /// Genetic Algorithm Configuration ///
-    //////////////////////////////////////
+    ///////////////////////////////////////
 
 
     popSize: 150,           // the size of the population in the GA
@@ -47,17 +47,19 @@ const CONFIG = {
     maxGeneration: 60,      // the maximum generation
 
     tileOptions: [          // the possible tile types to be used
-        'C',
-        'F',
-        'M',
-        'W'
+        1,                  // Control Rod
+        2,                  // Fuel
+        3,                  // Moderator
+        4,                  // Wall
+        //5,                  // Horizontal Reflector
+        //6                   // Vertical Reflector
     ]
 };
 
 
 ///////////////////////////////////////
 ///     Rendering Configuration     ///
-//////////////////////////////////////
+///////////////////////////////////////
 
 
 const RENDER = {
@@ -71,15 +73,15 @@ const RENDER = {
 
 
 ///////////////////////////////////////
-///    Char to Tile Type mapping    ///
-//////////////////////////////////////
+///        Tile Type mapping        ///
+///////////////////////////////////////
 
 
 const TILE_MAP = {
-    'C': ControlRod,
-    'F': Fuel,
-    'M': Moderator,
-    'H': HorizontalReflector,
-    'V': VerticalReflector,
-    'W': Wall
+    1: ControlRod,
+    2: Fuel,
+    3: Moderator,
+    4: Wall,
+    5: HorizontalReflector,
+    6: VerticalReflector
 };
