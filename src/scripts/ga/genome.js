@@ -27,7 +27,13 @@ class Genome {
     }
 
     crossover(other) {
-        return this.crossoverByBlock(other);
+        if (CONFIG.crossoverType == "byTile") {
+            return this.crossoverByTile(other);
+        }
+
+        if (CONFIG.crossoverType == "byBlock") {
+            return this.crossoverByBlock(other);
+        }
     }
 
     crossoverByBlock(other) {

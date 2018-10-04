@@ -195,9 +195,18 @@ class Simulation {
 
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-        var tilesCount, meanHeat;
+        var tilesCount, totalHeat, t;
+
         tilesCount = this.getTilesCount();
+        totalHeat = this.getTotalHeat();
+        t = 1;
+
+        while (totalHeat <= CONFIG.heatMax) {
+            this.update()
+            totalHeat = this.getTotalHeat();
+            t++;
+        }
         
-        return tilesCount.fuels;
+        return t;
     }
 }
