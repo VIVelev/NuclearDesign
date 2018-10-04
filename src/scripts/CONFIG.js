@@ -46,7 +46,7 @@ const CONFIG = {
     crossoverType: "byTile",  // "byTile" or "byBlock"
 
     evaluationLength: 100,    // how many ticks an evaluation takes
-    maxGeneration: 100,       // the maximum generation
+    maxGeneration: 30,        // the maximum generation
 
     tileOptions: [            // the possible tile types to be used
         1,                    // Control Rod

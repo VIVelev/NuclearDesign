@@ -194,19 +194,19 @@ class Simulation {
     }
 
     evaluateGenome(genome) {
-        // this.createReactorFromGenome(genome);
-        // var tilesCount, totalHeat, t;
+        this.createReactorFromGenome(genome);
+        var tilesCount, totalHeat, t;
 
-        // tilesCount = this.getTilesCount();
-        // totalHeat = this.getTotalHeat();
-        // t = 1;
+        tilesCount = this.getTilesCount();
+        totalHeat = this.getTotalHeat();
+        t = 1;
 
-        // while (totalHeat <= CONFIG.heatMax) {
-        //     this.update()
-        //     totalHeat = this.getTotalHeat();
-        //     t++;
-        // }
+        while (totalHeat <= CONFIG.heatMax && t <= CONFIG.evaluationLength) {
+            this.update()
+            totalHeat = this.getTotalHeat();
+            t++;
+        }
         
-        return symmetricMetric(genome.grid);
+        return (t + symmetricMetric(genome.grid)*100) / (tilesCount.fuels + 1);
     }
 }
