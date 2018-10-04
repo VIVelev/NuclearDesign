@@ -23,7 +23,7 @@ function runGenerationSession() {
 //////////////////////////////////
 
 
-function displayConfig() {
+function displayCONFIG() {
     config = document.getElementById("config");
     config.innerHTML = "";
     

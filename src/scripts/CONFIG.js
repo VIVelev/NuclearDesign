@@ -1,5 +1,11 @@
-// Configuration
 const CONFIG = {
+
+
+    ///////////////////////////////////////
+    ///     Simulation Configuration    ///
+    //////////////////////////////////////
+
+
     controlRodChance: 0.5,  // chance for control rod to absorb a neutron
     controlRodCool: 1,      // control rod cooling per tick
     controlRodHeat: 200,    // heat generated per collision
@@ -27,6 +33,12 @@ const CONFIG = {
     renderGlow: false,      // render glow effect
     wallCool: 1000000,      // wall cooling per tick
 
+
+    ///////////////////////////////////////
+    /// Genetic Algorithm Configuration ///
+    //////////////////////////////////////
+
+
     popSize: 150,           // the size of the population in the GA
     mutationRate: 0.25,     // chance for a random change in a genome's genotype
     elitism: 2,             // the number of genome's to directly pass to the new generation
@@ -42,6 +54,12 @@ const CONFIG = {
     ] 
 };
 
+
+///////////////////////////////////////
+///     Rendering Configuration     ///
+//////////////////////////////////////
+
+
 const RENDER = {
     cellSize: 20,       // height and width of each cell
     nSize: 10,          // diameter of each neutron
@@ -51,6 +69,12 @@ const RENDER = {
     canvasHeight: 300   // height of canvas
 };
 
+
+///////////////////////////////////////
+///    Char to Tile Type mapping    ///
+//////////////////////////////////////
+
+
 const TILE_MAP = {
     'C': ControlRod,
     'F': Fuel,
@@ -58,5 +82,4 @@ const TILE_MAP = {
     'H': HorizontalReflector,
     'V': VerticalReflector,
     'W': Wall
-
 };
