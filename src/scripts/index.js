@@ -4,13 +4,13 @@
 
 
 pop = null;
-function runGenerationSession(maxGeneration=20) {
+function runGenerationSession() {
     pop = new Population(
         new Simulation(visualize=false)
     );
 
     pop.initRandomPopulation();
-    while (pop.generation <= maxGeneration) {
+    while (pop.generation <= MAX_GENERATION) {
         pop.evaluatePopulation();
         pop.printStatistics();
         pop.generateNewPopulation();
