@@ -67,7 +67,7 @@ class Genome {
             }
         }
 
-        return new Genome(this.simulation, newGrid)
+        return new Genome(this.simulation, newGrid);
     }
 
     mutate() {

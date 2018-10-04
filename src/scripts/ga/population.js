@@ -51,7 +51,7 @@ class Population {
         
         // Crossover between parents and mutation
         for (var i = CONFIG.elitism; i < CONFIG.popSize; i++) {
-            this.parentSelection()
+            this.parentSelection();
             var offspring = this.parents[0].crossover(this.parents[1]);
             offspring.mutate();
             newPopulation[i] = offspring;
