@@ -17,7 +17,7 @@ class Genome {
     randomInit() {
         for (var x = 0; x < this.simulation.nCols; x++) {
             for (var y = 0; y < this.simulation.nRows; y++) {
-                this.grid[x][y] = choose(['C', 'F', 'M', 'W']);
+                this.grid[x][y] = choose(['C', 'F', 'M', 'H', 'V', 'W']);
             }
         }
     }
@@ -45,7 +45,7 @@ class Genome {
         if (mutationRate > random(100) / 100) {
             var x = floor(random(this.simulation.nCols));
             var y = floor(random(this.simulation.nRows));
-
+            
             this.grid[x][y] = choose(['C', 'F', 'M', 'H', 'V', 'W']);
         }
     }

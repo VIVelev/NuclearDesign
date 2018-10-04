@@ -142,11 +142,13 @@ class Simulation {
 
     // Updates the monitor with information
     updateStats() {
-        var ncount = document.getElementById("ncount");
-        ncount.innerHTML = "Neutron count: " + this.neutrons.length;
+        if (this.visualize) {
+            var ncount = document.getElementById("ncount");
+            ncount.innerHTML = "Neutron count: " + this.neutrons.length;
 
-        var meanHeat = document.getElementById("meanHeat");
-        meanHeat.innerHTML = "Mean heat: " + this.getMeanHeat();
+            var meanHeat = document.getElementById("meanHeat");
+            meanHeat.innerHTML = "Mean heat: " + this.getMeanHeat();
+        }
     }
 
     update() {
