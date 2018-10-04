@@ -31,7 +31,7 @@ class Population {
             var k = random(fitnessSum);
             var j = 0;
 
-            while (k > 0) {
+            while (k >= 0) {
                 k -= this.population[j].fitness;
                 j++;
             }

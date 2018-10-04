@@ -159,7 +159,7 @@ class Simulation {
 
         for (x = 0; x < this.nCols; x++) {
             for (y = 0; y < this.nRows; y++) {
-                switch (TILE_MAP[this.grid[x][y]]) {
+                switch (this.grid[x][y].__proto__.constructor) {
                     case ControlRod:
                         tilesCount.controlRods++;
                         break;
@@ -189,7 +189,7 @@ class Simulation {
                 }
             }
         }
-
+        
         return tilesCount;
     }
 
