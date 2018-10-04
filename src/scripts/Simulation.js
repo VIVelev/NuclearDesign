@@ -21,6 +21,14 @@ class Simulation {
         this.heatOverlay = false;
     }
 
+    toggleControlRods() {
+        this.controlRods = !this.controlRods;
+    }
+
+    toggleHeatOverlay() {
+        this.heatOverlay = !this.heatOverlay;
+    }
+
     // Fill board with moderator
     fillModerator() {
         for (var x = 0; x < this.nCols; x++) {
