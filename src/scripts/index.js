@@ -49,8 +49,6 @@ function preview() {
 
 
 function setup() {
-    displayConfig();
-
     canPreview = false;
     sim = null;
 }

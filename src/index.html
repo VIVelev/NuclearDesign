@@ -5,6 +5,7 @@
     <title>Nuclear Reactor</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald:500" rel="stylesheet">
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
 
     <script src="scripts/libraries/p5.min.js" defer></script>
@@ -42,8 +43,8 @@
         <ul id="config"></ul>
       </div>
 
-      <button onclick="runGenerationSession()">Run Generation Session</button>
-      <button onclick="preview()">Preview the results</button>
+      <button class="btn btn-outline-primary" onclick="runGenerationSession()">Run Generation Session</button>
+      <button class="btn btn-outline-success" onclick="preview()">Preview the results</button>
 
       <div id="reactor-container"></div>
     </main>
