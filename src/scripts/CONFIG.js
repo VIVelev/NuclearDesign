@@ -51,7 +51,7 @@ const CONFIG = {
         'F',
         'M',
         'W'
-    ] 
+    ]
 };
 
 
