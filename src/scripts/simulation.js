@@ -146,7 +146,6 @@ class Simulation {
     }
 
     evaluateGenome(genome) {
-        // TODO: Improve
         this.createReactorFromGenome(genome);
 
         var t = 1;
