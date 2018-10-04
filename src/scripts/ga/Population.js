@@ -5,6 +5,9 @@ class Population {
         this.generation = 0;
 
         this.parents = new Array(2);
+
+        this.bestGenome = null;
+        this.bestFitness = 0;
     }
 
     initRandomPopulation() {
@@ -18,6 +21,8 @@ class Population {
         for (var i = 0; i < POP_SIZE; i++) {
             this.population[i].evaluate();
         }
+
+        this.updateBestGenome();
     }
 
     parentSelection() {
@@ -43,7 +48,8 @@ class Population {
         for (var i = 0; i < ELITISM; i++) {
             newPopulation[i] = this.population[i];
         }
-
+        
+        // Crossover between parents and mutation
         for (var i = ELITISM; i < POP_SIZE; i++) {
             this.parentSelection()
             var offspring = this.parents[0].crossover(this.parents[1]);
@@ -58,7 +64,7 @@ class Population {
     printStatistics() {
         console.log(`******************** Generation ${this.generation} ********************`);
         console.log(`Mean Fitness: ${this.getMeanFitness()}`);
-        console.log(`Best Fitness: ${this.getBestFitness()}`);
+        console.log(`Best Fitness: ${this.bestFitness}`);
         console.log("\n");
     }
 
@@ -75,28 +81,12 @@ class Population {
         return this.getFitnessSum() / POP_SIZE;
     }
 
-    getBestFitness() {
-        var bestFitness = 0;
+    updateBestGenome() {
         for (var i = 0; i < POP_SIZE; i++) {
-            if (bestFitness < this.population[i].fitness) {
-                bestFitness = this.population[i].fitness;
+            if (this.bestFitness < this.population[i].fitness) {
+                this.bestFitness = this.population[i].fitness;
+                this.bestGenome = this.population[i];
             }
-        } 
-
-        return bestFitness;
-    }
-
-    getBestGenome() {
-        var bestGenome = this.population[0];
-        var bestFitness = 0;
-
-        for (var i = 0; i < POP_SIZE; i++) {
-            if (bestFitness < this.population[i].fitness) {
-                bestFitness = this.population[i].fitness;
-                bestGenome = this.population[i];
-            }
-        } 
-
-        return bestGenome;
+        }
     }
 }

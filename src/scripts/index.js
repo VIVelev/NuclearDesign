@@ -4,7 +4,7 @@
 
 
 pop = null;
-function runGenerationSession(maxGeneration=50) {
+function runGenerationSession(maxGeneration=20) {
     pop = new Population(
         new Simulation(visualize=false)
     );
@@ -39,7 +39,7 @@ function preview() {
     canPreview = true;
 
     sim = new Simulation();
-    sim.createReactorFromGenome(pop.getBestGenome());
+    sim.createReactorFromGenome(pop.bestGenome);
 }
 
 

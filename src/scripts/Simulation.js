@@ -199,6 +199,6 @@ class Simulation {
             t++;
         }
 
-        return 1 / fitness;
+        return fitness;
     }
 }
