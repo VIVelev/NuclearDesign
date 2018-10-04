@@ -145,7 +145,7 @@ class Simulation {
         this.updateStats();
     }
 
-    getTilesCount(genome) {
+    getTilesCount() {
         var x, y, tilesCount;
 
         tilesCount = {
@@ -159,7 +159,7 @@ class Simulation {
 
         for (x = 0; x < this.nCols; x++) {
             for (y = 0; y < this.nRows; y++) {
-                switch (TILE_MAP[genome.grid[x][y]]) {
+                switch (TILE_MAP[this.grid[x][y]]) {
                     case ControlRod:
                         tilesCount.controlRods++;
                         break;
@@ -194,8 +194,9 @@ class Simulation {
     }
 
     evaluateGenome(genome) {
+        this.createReactorFromGenome(genome);
         var tilesCount;
-        tilesCount = this.getTilesCount(genome);
+        tilesCount = this.getTilesCount();
         
         return tilesCount.fuels;
     }
