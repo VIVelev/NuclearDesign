@@ -145,7 +145,58 @@ class Simulation {
         this.updateStats();
     }
 
+    getTilesCount(genome) {
+        var x, y, tilesCount;
+
+        tilesCount = {
+            controlRods: 0,
+            fuels: 0,
+            moderators: 0,
+            walls: 0,
+            horizontalReflectors: 0,
+            verticalReflectors: 0
+        };
+
+        for (x = 0; x < this.nCols; x++) {
+            for (y = 0; y < this.nRows; y++) {
+                switch (TILE_MAP[genome.grid[x][y]]) {
+                    case ControlRod:
+                        tilesCount.controlRods++;
+                        break;
+
+                    case Fuel:
+                        tilesCount.fuels++;
+                        break;
+
+                    case Moderator:
+                        tilesCount.moderators++;
+                        break;
+
+                    case Wall:
+                        tilesCount.walls++;
+                        break;
+
+                    case HorizontalReflector:
+                        tilesCount.horizontalReflectors++;
+                        break;
+
+                    case VerticalReflector:
+                        tilesCount.verticalReflectors++;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        return tilesCount;
+    }
+
     evaluateGenome(genome) {
-        return symmetricMetric(genome.grid);
+        var tilesCount;
+        tilesCount = this.getTilesCount(genome);
+        
+        return tilesCount.fuels;
     }
 }

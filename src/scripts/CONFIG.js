@@ -51,8 +51,8 @@ const CONFIG = {
         2,                  // Fuel
         3,                  // Moderator
         4,                  // Wall
-        //5,                  // Horizontal Reflector
-        //6                   // Vertical Reflector
+        5,                  // Horizontal Reflector
+        6                   // Vertical Reflector
     ]
 };
 
