@@ -1,7 +1,7 @@
 class Population {
     constructor(simulation) {
         this.simulation = simulation;
-        this.population = new Array(POP_SIZE);
+        this.population = new Array(CONFIG.popSize);
         this.generation = 0;
 
         this.parents = new Array(2);
@@ -11,14 +11,14 @@ class Population {
     }
 
     initRandomPopulation() {
-        for (var i = 0; i < POP_SIZE; i++) {
+        for (var i = 0; i < CONFIG.popSize; i++) {
             this.population[i] = new Genome(this.simulation);
             this.population[i].randomInit();
         }
     }
 
     evaluatePopulation() {
-        for (var i = 0; i < POP_SIZE; i++) {
+        for (var i = 0; i < CONFIG.popSize; i++) {
             this.population[i].evaluate();
         }
 
@@ -42,18 +42,18 @@ class Population {
     }
 
     generateNewPopulation() {
-        var newPopulation = new Array(POP_SIZE);
+        var newPopulation = new Array(CONFIG.popSize);
 
         // Directly transfer the top individuals to the next generation
-        for (var i = 0; i < ELITISM; i++) {
+        for (var i = 0; i < CONFIG.elitism; i++) {
             newPopulation[i] = this.population[i];
         }
         
         // Crossover between parents and mutation
-        for (var i = ELITISM; i < POP_SIZE; i++) {
+        for (var i = CONFIG.elitism; i < CONFIG.popSize; i++) {
             this.parentSelection()
             var offspring = this.parents[0].crossover(this.parents[1]);
-            offspring.mutate(MUTATION_RATE);
+            offspring.mutate();
             newPopulation[i] = offspring;
         }
 
@@ -70,7 +70,7 @@ class Population {
 
     getFitnessSum() {
         var fitnessSum = 0;
-        for (var i = 0; i < POP_SIZE; i++) {
+        for (var i = 0; i < CONFIG.popSize; i++) {
             fitnessSum += this.population[i].fitness;
         }
 
@@ -78,11 +78,11 @@ class Population {
     }
 
     getMeanFitness() {
-        return this.getFitnessSum() / POP_SIZE;
+        return this.getFitnessSum() / CONFIG.popSize;
     }
 
     updateBestGenome() {
-        for (var i = 0; i < POP_SIZE; i++) {
+        for (var i = 0; i < CONFIG.popSize; i++) {
             if (this.bestFitness < this.population[i].fitness) {
                 this.bestFitness = this.population[i].fitness;
                 this.bestGenome = this.population[i];

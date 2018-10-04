@@ -17,7 +17,7 @@ class Genome {
     randomInit() {
         for (var x = 0; x < this.simulation.nCols; x++) {
             for (var y = 0; y < this.simulation.nRows; y++) {
-                this.grid[x][y] = choose(TILE_OPTIONS);
+                this.grid[x][y] = choose(CONFIG.tileOptions);
             }
         }
     }
@@ -41,12 +41,12 @@ class Genome {
         return new Genome(this.simulation, newGrid)
     }
 
-    mutate(mutationRate) {
-        if (mutationRate > random(100) / 100) {
+    mutate() {
+        if (CONFIG.mutationRate > random(100) / 100) {
             var x = floor(random(this.simulation.nCols));
             var y = floor(random(this.simulation.nRows));
             
-            this.grid[x][y] = choose(TILE_OPTIONS);
+            this.grid[x][y] = choose(CONFIG.tileOptions);
         }
     }
 }

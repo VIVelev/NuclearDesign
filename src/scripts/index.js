@@ -10,7 +10,7 @@ function runGenerationSession() {
     );
 
     pop.initRandomPopulation();
-    while (pop.generation <= MAX_GENERATION) {
+    while (pop.generation <= CONFIG.maxGeneration) {
         pop.evaluatePopulation();
         pop.printStatistics();
         pop.generateNewPopulation();

@@ -1,52 +1,3 @@
-// Configuration
-const CONFIG = {
-    controlRodChance: 0.5,  // chance for control rod to absorb a neutron
-    controlRodCool: 1,      // control rod cooling per tick
-    controlRodHeat: 200,    // heat generated per collision
-
-    fuelChance: 0.07,       // chance for fuel rod to absorb a neutron
-    fuelCool: 1,            // fuel rod cooling per tick
-    fuelHeat: 400,          // heat generated per reaction
-    fuelSpontChance: 0.05,     // chance for spontaneous neutron emission
-    fuelSpontHeat: 2,       // heat generated per spontaneous neutron emission
-
-    heatMax: -1,            // maximum allowed heat or -1 for unlimited
-    heatTransfer: 0.05,     // percent of heat transferred to adjacent tiles
-
-    moderatorCool: 2,       // moderator cooling per tick
-
-    nCardDir: false,        // neutrons only travel in cardinal directions
-    nSpawnMin: 1,           // min number of neutrons per reaction
-    nSpawnMax: 3,           // max number of neutrons per reaction
-    nSpeedMin: 1,           // min neutron speed
-    nSpeedMax: 10,          // max neutron speed
-
-    reflectorCool: 1,       // reflector cooling per tick
-    reflectorHeat: 100,     // heat generated per reflection
-
-    renderGlow: false,      // render glow effect
-    wallCool: 1000000       // wall cooling per tick
-};
-
-const RENDER = {
-    cellSize: 20,       // height and width of each cell
-    nSize: 10,          // diameter of each neutron
-    gLayers: 5,         // number of layers for glow effect
-    gSize: 60,          // diameter of glow effect
-    canvasWidth: 300,   // width of canvas
-    canvasHeight: 300   // height of canvas
-};
-
-const TILE_MAP = {
-    'C': ControlRod,
-    'F': Fuel,
-    'M': Moderator,
-    'H': HorizontalReflector,
-    'V': VerticalReflector,
-    'W': Wall
-
-};
-
 class Simulation {
     constructor(visualize=true) {
         this.visualize = visualize
@@ -192,7 +143,7 @@ class Simulation {
         var t = 1;
         var fitness = 0;
 
-        while (t < EVALUATION_LENGTH) {
+        while (t < CONFIG.evaluationLength) {
             this.update();
 
             fitness += this.getTotalHeat();
