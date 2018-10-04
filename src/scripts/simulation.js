@@ -146,19 +146,6 @@ class Simulation {
     }
 
     evaluateGenome(genome) {
-        // TODO: Improve
-        this.createReactorFromGenome(genome);
-
-        var t = 1;
-        var fitness = 0;
-
-        while (t < CONFIG.evaluationLength) {
-            this.update();
-
-            fitness += this.getTotalHeat();
-            t++;
-        }
-
-        return fitness;
+        return symmetricMetric(genome.grid);
     }
 }
