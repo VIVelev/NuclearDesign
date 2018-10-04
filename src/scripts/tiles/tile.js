@@ -54,21 +54,6 @@ class Tile {
         return {x: x, y: y};
     }
 
-    // Ensure heat doesn't exceed max or min value
-    checkHeat() {
-        if (CONFIG.heatMax == -1) {
-            return;
-        }
-
-        if (this.heat < 0) {
-            this.heat = 0;
-        }else if (this.heat > CONFIG.heatMax) {
-            this.heat = CONFIG.heatMax;
-        }else {
-            //
-        }
-    }
-
     // Behavior for collision with neutron
     // Override
     onReact(n) {}
@@ -76,7 +61,6 @@ class Tile {
     // Cooling and distributing heat
     spreadHeat() {
         this.heat -= this.cool;
-        this.checkHeat();
 
         // Spread heat to adjacent tiles
         var adj = this.adjacent();

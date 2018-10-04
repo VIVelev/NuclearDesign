@@ -195,7 +195,7 @@ class Simulation {
 
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-        var tilesCount;
+        var tilesCount, meanHeat;
         tilesCount = this.getTilesCount();
         
         return tilesCount.fuels;
