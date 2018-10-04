@@ -24,14 +24,22 @@ function runGenerationSession() {
 
 
 function displayCONFIG() {
-    config = document.getElementById("config");
-    config.innerHTML = "";
-    
-    for (var item in CONFIG) {
-      newItem = document.createElement("li");
-      newItem.innerHTML = item + ": " + CONFIG[item];
-      newItem.setAttribute("class", "param");
-      config.appendChild(newItem);
+    config = document.getElementById("tableConfig");
+    // config.innerHTML = "";
+
+    for (var prop in CONFIG) {
+      newRow = document.createElement("tr");
+      newTextCell = document.createElement("td");
+      newTextCell.innerHTML = prop;
+      newInputCell = document.createElement("td");
+      newInput = document.createElement("input");
+      newInput.defaultValue = CONFIG[prop];
+      newInput.setAttribute("class", "param");
+      newInput.setAttribute("type", "text");
+      newInputCell.appendChild(newInput);
+      newRow.appendChild(newTextCell);
+      newRow.appendChild(newInputCell);
+      config.appendChild(newRow);
     }
 }
 
