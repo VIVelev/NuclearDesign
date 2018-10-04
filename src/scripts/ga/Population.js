@@ -65,7 +65,7 @@ class Population {
         console.log(`******************** Generation ${this.generation} ********************`);
         console.log(`Mean Fitness: ${this.getMeanFitness()}`);
         console.log(`Best Fitness: ${this.getCurrentBestFitness()}`);
-        console.log(`Standard Deviation: ${this.getStandardDeviation()}`);
+        console.log(`Fitness Standard Deviation: ${this.getStandardDeviation()}`);
         console.log("\n");
     }
 
@@ -94,8 +94,14 @@ class Population {
     }
 
     getStandardDeviation() {
-        // TODO
-        return 0;
+        var meanFitness = this.getMeanFitness();
+        var stdDev = 0;
+
+        for (var i = 0; i < CONFIG.popSize; i++) {
+            stdDev += pow(this.population[i].fitness - meanFitness, 2);
+        }
+
+        return sqrt(stdDev/CONFIG.popSize);
     }
 
     updateBestGenome() {
