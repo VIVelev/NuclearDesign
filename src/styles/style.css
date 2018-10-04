@@ -11,3 +11,21 @@ main {
 ul {
     list-style-type: none;
 }
+
+.input1{
+	position: fixed;
+    bottom: 50%;
+    left: 5%;
+    
+}
+
+.input2{
+	position: fixed;
+    bottom: 50%;
+    left: 25%;
+    
+}
+
+.type{
+	text-align: left;
+}
