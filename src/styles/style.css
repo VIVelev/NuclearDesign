@@ -4,9 +4,8 @@ main {
 }
 
 #reactor-container {
-    top: 10%;
     left: 35%;
-    position: absolute;
+    position: relative;
 }
 
 ul {
