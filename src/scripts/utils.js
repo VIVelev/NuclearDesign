@@ -29,19 +29,16 @@ function randVelocity() {
 // Initialize Linear Algebra utils
 linAlg = linearAlgebra();
 
-function det(M) {
-    if (M.length==2) { return (M[0][0]*M[1][1])-(M[0][1]*M[1][0]); }
-    var answer = 0;
-    for (var i=0; i< M.length; i++) { answer += Math.pow(-1,i)*M[0][i]*det(deleteRowAndColumn(M,i)); }
-    return answer;
-}
+// Forbenius Norm of a matrix
+function forbenius_norm(M) {
+    var norm = 0;
+    for (var i = 0; i < M.length; i++) {
+        for (var j = 0; j < M[i].length; j++) {
+            norm += pow(M[i][j], 2);
+        }
+    }
 
-function deleteRowAndColumn(M,index) {
-    var temp = [];
-    for (var i=0; i<M.length; i++) { temp.push(M[i].slice(0)); } 
-    temp.splice(0,1); 
-    for (var i=0; i<temp.length; i++) { temp[i].splice(index,1); } 
-    return temp;
+    return sqrt(norm);
 }
 
 // Symmetric matrix metric from -1 (anti-symmetric) to 1 (symmetric)
@@ -52,8 +49,8 @@ function symmetricMetric(array) {
     A_sym = (A.plus(A.trans())).mulEach(1/2);
     A_anti = (A.minus(A.trans())).mulEach(1/2);
 
-    x = det(A_sym.toArray());
-    y = det(A_anti.toArray());
+    x = forbenius_norm(A_sym.toArray());
+    y = forbenius_norm(A_anti.toArray());
 
     return (x - y) / (x + y);
 }

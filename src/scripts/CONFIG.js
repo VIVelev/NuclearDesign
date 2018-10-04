@@ -40,13 +40,13 @@ const CONFIG = {
 
 
     popSize: 300,             // the size of the population in the GA
-    mutationRate: 0.05,       // chance for a random change in a genome's genotype
+    mutationRate: 0.15,       // chance for a random change in a genome's genotype
     elitism: 2,               // the number of genome's to directly pass to the new generation
 
     crossoverType: "byTile",  // "byTile" or "byBlock"
 
     evaluationLength: 100,    // how many ticks an evaluation takes
-    maxGeneration: 35,        // the maximum generation
+    maxGeneration: 100,       // the maximum generation
 
     tileOptions: [            // the possible tile types to be used
         1,                    // Control Rod
