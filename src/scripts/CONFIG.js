@@ -47,8 +47,8 @@ var CONFIG = {
     blockWidth: 5,            // number of tiles
     blockHeight: 5,           // number of tiles  
 
-    evaluationLength: 20,    // how many ticks an evaluation takes
-    maxGeneration: 50,       // the maximum generation
+    evaluationLength: 20,     // how many ticks an evaluation takes
+    maxGeneration: 50,        // the maximum generation
 
     tileOptions: [            // the possible tile types to be used
         1,                    // Control Rod
