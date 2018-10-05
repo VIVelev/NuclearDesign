@@ -1,7 +1,7 @@
 class Simulation {
     constructor(visualize=true) {
         this.visualize = visualize
-        
+
         if (this.visualize) {
             this.canvas = createCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
             this.canvas.parent("reactor-container");
@@ -9,7 +9,7 @@ class Simulation {
 
         this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
         this.nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
-    
+
         this.grid = new Array(this.nCols);
         for (var i = 0; i < this.nCols; i++) {
             this.grid[i] = new Array(this.nRows);
@@ -114,34 +114,34 @@ class Simulation {
         if (this.visualize) {
             background(0, 0, 0);
         }
-    
+
         for (var x = 0; x < this.nCols; x++) {
             for (var y = 0; y < this.nRows; y++) {
                 this.grid[x][y].update();
-    
+
                 if (this.visualize) {
                     this.grid[x][y].display();
                 }
             }
         }
-    
+
         for (var i = 0; i < this.neutrons.length; i++) {
             this.neutrons[i].update();
             if (this.neutrons[i].checkEdges()) {
                 this.removeNeutron(this.neutrons[i]);
                 continue;
             }
-    
+
             var c = currentTile(this.neutrons[i].pos.x, this.neutrons[i].pos.y);
             if (this.grid[c.x][c.y].onReact(this.neutrons[i])) {
                 continue;
             }
-    
+
             if (this.visualize) {
                 this.neutrons[i].display();
             }
         }
-    
+
         this.updateStats();
     }
 
@@ -189,7 +189,7 @@ class Simulation {
                 }
             }
         }
-        
+
         return tilesCount;
     }
 
@@ -205,7 +205,7 @@ class Simulation {
     }
 
     getStdDevNeutrons() {
-        var meanPos, sumSqDiff, i, diffVec;        
+        var meanPos, sumSqDiff, i, diffVec;
         meanPos = this.getMeanNeutronPos();
         sumSqDiff = 0;
 
@@ -227,7 +227,7 @@ class Simulation {
             t++;
             sumStdDev += this.getStdDevNeutrons();
         }
-        
+
         return pow(this.evaluateTilesPosition(), 2) + this.neutrons.length / sumStdDev;
     }
 
@@ -266,7 +266,7 @@ class Simulation {
                 grid[x][y] = new Fuel(x, y, this);
                 y -= 2;
             }
-        
+
             x += 2;
         }
 
@@ -293,7 +293,7 @@ class Simulation {
 
             x += 2;
         }
-        
+
         // Bottom left corner
         x = floor(this.nCols / 2);
         while (x > 0) {
