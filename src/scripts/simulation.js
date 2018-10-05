@@ -59,7 +59,7 @@ class Simulation {
             }
         }
 
-        this.fillEdges();
+        this.fillEdges(this.grid);
     }
 
     // Returns the reactor's heat
@@ -219,22 +219,34 @@ class Simulation {
 
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-        var t, sumStdDev;
-        t = sumStdDev = 0;
+        // var t, sumStdDev;
+        // t = sumStdDev = 0;
 
-        while (t < CONFIG.evaluationLength) {
-            this.update();
-            t++;
-            sumStdDev += this.getStdDevNeutrons();
-        }
+        // while (t < CONFIG.evaluationLength) {
+        //     this.update();
+        //     t++;
+        //     sumStdDev += this.getStdDevNeutrons();
+        // }
         
-        return this.neutrons.length / sumStdDev;
+        // return this.neutrons.length / sumStdDev;
+
+        return this.evaluateTilesPosition();
     }
 
     evaluateTilesPosition() {
         var score, targetGrid, x, y,
         score = 0;
         targetGrid = this.getTargetGrid();
+
+        for (x = 0; x < this.nCols; x++) {
+            for (y = 0; y < this.nRows; y++) {
+                if (this.grid[x][y].__proto__.constructor == targetGrid[x][y].__proto__.constructor) {
+                    score++;
+                }
+            }
+        }
+
+        return score;
     }
 
     getTargetGrid() {
