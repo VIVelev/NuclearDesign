@@ -31,7 +31,7 @@ class Population {
             var k = random(fitnessSum);
             var j = 0;
 
-            while (k > 0) {
+            while (k >= 0) {
                 k -= this.population[j].fitness;
                 j++;
             }
@@ -51,7 +51,7 @@ class Population {
         
         // Crossover between parents and mutation
         for (var i = CONFIG.elitism; i < CONFIG.popSize; i++) {
-            this.parentSelection()
+            this.parentSelection();
             var offspring = this.parents[0].crossover(this.parents[1]);
             offspring.mutate();
             newPopulation[i] = offspring;

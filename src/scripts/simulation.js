@@ -128,7 +128,7 @@ class Simulation {
         for (var i = 0; i < this.neutrons.length; i++) {
             this.neutrons[i].update();
             if (this.neutrons[i].checkEdges()) {
-                this.removeNeutron(neutrons[i]);
+                this.removeNeutron(this.neutrons[i]);
                 continue;
             }
     
@@ -145,19 +145,89 @@ class Simulation {
         this.updateStats();
     }
 
+    getTilesCount() {
+        var x, y, tilesCount;
+
+        tilesCount = {
+            controlRods: 0,
+            fuels: 0,
+            moderators: 0,
+            walls: 0,
+            horizontalReflectors: 0,
+            verticalReflectors: 0
+        };
+
+        for (x = 0; x < this.nCols; x++) {
+            for (y = 0; y < this.nRows; y++) {
+                switch (this.grid[x][y].__proto__.constructor) {
+                    case ControlRod:
+                        tilesCount.controlRods++;
+                        break;
+
+                    case Fuel:
+                        tilesCount.fuels++;
+                        break;
+
+                    case Moderator:
+                        tilesCount.moderators++;
+                        break;
+
+                    case Wall:
+                        tilesCount.walls++;
+                        break;
+
+                    case HorizontalReflector:
+                        tilesCount.horizontalReflectors++;
+                        break;
+
+                    case VerticalReflector:
+                        tilesCount.verticalReflectors++;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        return tilesCount;
+    }
+
+    getMeanNeutronPos() {
+        var meanPos, i;
+
+        meanPos = new p5.Vector(0, 0);
+        for (i = 0; i < this.neutrons.length; i++) {
+            meanPos.add(this.neutrons[i].pos);
+        }
+
+        return meanPos.div(this.neutrons.length+pow(10, -9));
+    }
+
+    getStdDevNeutrons() {
+        var meanPos, sumSqDiff, i, diffVec;        
+        meanPos = this.getMeanNeutronPos();
+        sumSqDiff = 0;
+
+        for (i = 0; i < this.neutrons.length; i++) {
+             diffVec = this.neutrons[i].pos.sub(meanPos);
+             sumSqDiff += diffVec.magSq();
+        }
+
+        return sqrt(sumSqDiff/(this.neutrons.length+pow(10, -9)));
+    }
+
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-
-        var t = 1;
-        var fitness = 0;
+        var t, sumStdDev;
+        t = sumStdDev = 0;
 
         while (t < CONFIG.evaluationLength) {
             this.update();
-
-            fitness += this.getTotalHeat();
             t++;
+            sumStdDev += this.getStdDevNeutrons();
         }
-
-        return fitness;
+        
+        return this.neutrons.length / sumStdDev;
     }
 }

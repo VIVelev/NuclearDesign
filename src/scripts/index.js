@@ -1,10 +1,12 @@
+var pop, canPreview, sim;
+
+
 ////////////////////////////
-//   Generation Session   //
-///////////////////////////
+//  Optimization Session  //
+////////////////////////////
 
 
-pop = null;
-function runGenerationSession() {
+function optimize() {
     pop = new Population(
         new Simulation(visualize=false)
     );
@@ -18,9 +20,9 @@ function runGenerationSession() {
 }
 
 
-//////////////////////////////////
-//           helpers            //
-//////////////////////////////////
+////////////////////////////
+//     Visualization      //
+////////////////////////////
 
 
 function displayCONFIG() {
@@ -69,10 +71,7 @@ function preview() {
 //////////////////////////////////
 
 
-function setup() {
-    canPreview = false;
-    sim = null;
-}
+function setup() { }
 
 function draw() {
     if (canPreview) {

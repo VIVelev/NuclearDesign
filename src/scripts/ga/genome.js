@@ -27,6 +27,41 @@ class Genome {
     }
 
     crossover(other) {
+        if (CONFIG.crossoverType == "byTile") {
+            return this.crossoverByTile(other);
+        }
+
+        if (CONFIG.crossoverType == "byBlock") {
+            return this.crossoverByBlock(other);
+        }
+    }
+
+    crossoverByBlock(other) {
+        var x, y, xStop, yStop, baseGrid, sourceGrid;
+
+        x = floor(random(this.simulation.nCols));
+        y = floor(random(this.simulation.nRows));
+        xStop = floor(random(x, this.simulation.nCols));
+        yStop = floor(random(y, this.simulation.nRows));
+
+        if (floor(random(2))) {
+            baseGrid = Array.from(this.grid);
+            sourceGrid = Array.from(other.grid);
+        }else {
+            sourceGrid = Array.from(this.grid);
+            baseGrid = Array.from(other.grid);
+        }
+
+        for (; x <= xStop; x++) {
+            for (; y <= yStop; y++) {
+                baseGrid[x][y] = sourceGrid[x][y];
+            }
+        }
+
+        return new Genome(this.simulation, baseGrid);
+    }
+
+    crossoverByTile(other) {
         var newGrid = new Array(this.simulation.nCols);
         for (var i = 0; i < this.simulation.nCols; i++) {
             newGrid[i] = new Array(this.simulation.nRows);
@@ -38,7 +73,7 @@ class Genome {
             }
         }
 
-        return new Genome(this.simulation, newGrid)
+        return new Genome(this.simulation, newGrid);
     }
 
     mutate() {

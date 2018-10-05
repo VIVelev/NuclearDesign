@@ -8,10 +8,11 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
 
+    <script src="scripts/libraries/linear-algebra.js" defer></script>
     <script src="scripts/libraries/p5.min.js" defer></script>
     <script src="scripts/libraries/p5.dom.min.js" defer></script>
 
-    <script src="scripts/utils.js"></script>
+    <script src="scripts/utils.js" defer></script>
 
     <script src="scripts/tiles/tile.js" defer></script>
     <script src="scripts/tiles/control_rod.js" defer></script>
@@ -43,15 +44,15 @@
         <ul id="config"></ul>
       </div>
 
-      <button class="btn btn-outline-primary" onclick="runGenerationSession()">Run Generation Session</button>
+      <button class="btn btn-outline-primary" onclick="optimize()">Optimize</button>
       <button class="btn btn-outline-success" onclick="preview()">Preview the results</button>
 
       <div class="input1">
 	      <table id="tableConfig"></table>
-	  </div>
-	  <div class="input2">
-	  	<button onclick="update_config()">Update</button>
-	  </div>
+	    </div>
+	    <div class="input2">
+	  	  <button onclick="update_config()">Update</button>
+	    </div>
       <div id="reactor-container"></div>
     </main>
 
