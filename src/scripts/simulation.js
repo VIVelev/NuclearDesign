@@ -219,18 +219,16 @@ class Simulation {
 
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-        // var t, sumStdDev;
-        // t = sumStdDev = 0;
+        var t, sumStdDev;
+        t = sumStdDev = 0;
 
-        // while (t < CONFIG.evaluationLength) {
-        //     this.update();
-        //     t++;
-        //     sumStdDev += this.getStdDevNeutrons();
-        // }
+        while (t < CONFIG.evaluationLength) {
+            this.update();
+            t++;
+            sumStdDev += this.getStdDevNeutrons();
+        }
         
-        // return this.neutrons.length / sumStdDev;
-
-        return this.evaluateTilesPosition();
+        return pow(this.evaluateTilesPosition(), 2) + this.neutrons.length / sumStdDev;
     }
 
     evaluateTilesPosition() {
