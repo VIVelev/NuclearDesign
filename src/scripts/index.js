@@ -36,13 +36,23 @@ function displayCONFIG() {
       newInput.defaultValue = CONFIG[prop];
       newInput.setAttribute("class", "param");
       newInput.setAttribute("type", "text");
+      newInput.setAttribute("id", prop);
       newInputCell.appendChild(newInput);
       newRow.appendChild(newTextCell);
       newRow.appendChild(newInputCell);
       config.appendChild(newRow);
     }
 }
+function update_config(){
+    params = document.getElementsByClassName("param");
+    var  len = params.length;
+    for(var i =0;i<len;i++){
+        inputs = params[i].getAttribute("id");
+        CONFIG[inputs] = params[i].value;
 
+    }
+    displayCONFIG();
+}
 function preview() {
     canPreview = true;
 

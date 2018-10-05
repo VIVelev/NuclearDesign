@@ -1,5 +1,4 @@
-const CONFIG = {
-
+CONFIG = {
 
     ///////////////////////////////////////
     ///     Simulation Configuration    ///
@@ -51,7 +50,7 @@ const CONFIG = {
         'F',
         'M',
         'W'
-    ] 
+    ]
 };
 
 
