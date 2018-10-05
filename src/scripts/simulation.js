@@ -1,7 +1,7 @@
 class Simulation {
     constructor(visualize=true) {
         this.visualize = visualize
-        
+
         if (this.visualize) {
             this.canvas = createCanvas(RENDER.canvasWidth, RENDER.canvasHeight);
             this.canvas.parent("reactor-container");
@@ -9,7 +9,7 @@ class Simulation {
 
         this.nRows = floor(RENDER.canvasHeight / RENDER.cellSize);
         this.nCols = floor(RENDER.canvasWidth / RENDER.cellSize);
-    
+
         this.grid = new Array(this.nCols);
         for (var i = 0; i < this.nCols; i++) {
             this.grid[i] = new Array(this.nRows);
@@ -114,34 +114,34 @@ class Simulation {
         if (this.visualize) {
             background(0, 0, 0);
         }
-    
+
         for (var x = 0; x < this.nCols; x++) {
             for (var y = 0; y < this.nRows; y++) {
                 this.grid[x][y].update();
-    
+
                 if (this.visualize) {
                     this.grid[x][y].display();
                 }
             }
         }
-    
+
         for (var i = 0; i < this.neutrons.length; i++) {
             this.neutrons[i].update();
             if (this.neutrons[i].checkEdges()) {
                 this.removeNeutron(this.neutrons[i]);
                 continue;
             }
-    
+
             var c = currentTile(this.neutrons[i].pos.x, this.neutrons[i].pos.y);
             if (this.grid[c.x][c.y].onReact(this.neutrons[i])) {
                 continue;
             }
-    
+
             if (this.visualize) {
                 this.neutrons[i].display();
             }
         }
-    
+
         this.updateStats();
     }
 
@@ -189,7 +189,7 @@ class Simulation {
                 }
             }
         }
-        
+
         return tilesCount;
     }
 
@@ -205,7 +205,7 @@ class Simulation {
     }
 
     getStdDevNeutrons() {
-        var meanPos, sumSqDiff, i, diffVec;        
+        var meanPos, sumSqDiff, i, diffVec;
         meanPos = this.getMeanNeutronPos();
         sumSqDiff = 0;
 
@@ -227,7 +227,7 @@ class Simulation {
             t++;
             sumStdDev += this.getStdDevNeutrons();
         }
-        
+
         return pow(this.evaluateTilesPosition(), 2) + this.neutrons.length / sumStdDev;
     }
 
@@ -256,65 +256,106 @@ class Simulation {
         }
 
         this.fillModerator(grid);
-        
-        // Main diagonal
-        for (x = 0; x < this.nCols; x++) {
-            grid[x][x] = new Fuel(x, x, this);
+        var mid = floor(this.nRows/2);
+
+        for(var i=0;i<=mid;i++){
+            console.log("1");
+            grid[mid+i][i+1] = new Fuel(mid+i, i+1 , this);
+            grid[mid-i][i+1] = new Fuel(mid-i, i+1, this);
+            grid[mid-i][this.nRows-i-2] = new Fuel(mid-i , this.nRows-i-2 , this);
+            grid[mid+i][this.nRows-i-2] = new Fuel(mid+i , this.nRows-i-2 , this);
+
         }
 
-        // Other diagonal
-        for (x = this.nCols-1; x >= 0; x--) {
-            grid[x][this.nRows-1-x] = new Fuel(x, this.nRows-1-x, this);
+        for(var i=0;i<mid-1;i++){
+            console.log("1");
+            grid[mid+i][i+2] = new ControlRod(mid+i, i+2, this);
+            grid[mid-i][i+2] = new ControlRod(mid-i, i+2, this);
+            grid[mid-i][this.nRows-i-3] = new ControlRod(mid-i, this.nRows-i-3 , this);
+            grid[mid+i][this.nRows-i-3] = new ControlRod(mid+i, this.nRows-i-3, this);
+
         }
 
-        // Top right corner
-        x = floor(this.nCols / 2);
-        while (x < this.nCols) {
-            y = floor(this.nRows / 2);
-            while (y > 0) {
-                grid[x][y] = new Fuel(x, y, this);
-                y -= 4;
-            }
-            
-            x += 4;
+        for(var i=0;i<mid-3;i++){
+            console.log("1");
+            grid[mid+i][i+4] = new Fuel(mid+i, i+4 , this);
+            grid[mid-i][i+4] = new Fuel(mid-i, i+4, this);
+            grid[mid-i][this.nRows-i-5] = new Fuel(mid-i , this.nRows-i-5 , this);
+            grid[mid+i][this.nRows-i-5] = new Fuel(mid+i , this.nRows-i-5 , this);
+
         }
 
-        // Top left corner
-        x = floor(this.nCols / 2);
-        while (x > 0) {
-            y = floor(this.nRows / 2);
-            while (y > 0) {
-                grid[x][y] = new Fuel(x, y, this);
-                y -= 4;
-            }
+        for(var i=0;i<mid-4;i++){
+            console.log("1");
+            grid[mid+i][i+5] = new ControlRod(mid+i, i+5 , this);
+            grid[mid-i][i+5] = new ControlRod(mid-i, i+5, this);
+            grid[mid-i][this.nRows-i-6] = new ControlRod(mid-i , this.nRows-i-6 , this);
+            grid[mid+i][this.nRows-i-6] = new ControlRod(mid+i , this.nRows-i-6 , this);
 
-            x -= 4;
         }
 
-        // Bottom right corner
-        x = floor(this.nCols / 2);
-        while (x < this.nCols) {
-            y = floor(this.nRows / 2);
-            while (y < this.nRows) {
-                grid[x][y] = new Fuel(x, y, this);
-                y += 4;
-            }
+        grid[mid][mid] = new Fuel(mid, mid, this);
 
-            x += 4;
-        }
-        
-        // Bottom left corner
-        x = floor(this.nCols / 2);
-        while (x > 0) {
-            y = floor(this.nRows / 2);
-            while (y < this.nRows) {
-                grid[x][y] = new Fuel(x, y, this);
-                y += 4;
-            }
 
-            x -= 4;
-        }
-        
+
+        // // Main diagonal
+        // for (x = 0; x < this.nCols; x++) {
+        //     grid[x][x] = new Fuel(x, x, this);
+        // }
+        //
+        // // Other diagonal
+        // for (x = this.nCols-1; x >= 0; x--) {
+        //     grid[x][this.nRows-1-x] = new Fuel(x, this.nRows-1-x, this);
+        // }
+        //
+        // // Top right corner
+        // x = floor(this.nCols / 2);
+        // while (x < this.nCols) {
+        //     y = floor(this.nRows / 2);
+        //     while (y > 0) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y -= 4;
+        //     }
+        //
+        //     x += 4;
+        // }
+        //
+        // // Top left corner
+        // x = floor(this.nCols / 2);
+        // while (x > 0) {
+        //     y = floor(this.nRows / 2);
+        //     while (y > 0) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y -= 4;
+        //     }
+        //
+        //     x -= 4;
+        // }
+        //
+        // // Bottom right corner
+        // x = floor(this.nCols / 2);
+        // while (x < this.nCols) {
+        //     y = floor(this.nRows / 2);
+        //     while (y < this.nRows) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y += 4;
+        //     }
+        //
+        //     x += 4;
+        // }
+        //
+        // // Bottom left corner
+        // x = floor(this.nCols / 2);
+        // while (x > 0) {
+        //     y = floor(this.nRows / 2);
+        //     while (y < this.nRows) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y += 4;
+        //     }
+        //
+        //     x -= 4;
+        // }
+
         this.fillEdges(grid);
         return grid;
     }
