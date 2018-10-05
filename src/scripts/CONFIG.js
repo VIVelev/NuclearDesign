@@ -1,5 +1,4 @@
-const CONFIG = {
-
+var CONFIG = {
 
     ///////////////////////////////////////
     ///     Simulation Configuration    ///

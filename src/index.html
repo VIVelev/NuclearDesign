@@ -27,12 +27,12 @@
 
     <script src="scripts/ga/genome.js" defer></script>
     <script src="scripts/ga/population.js" defer></script>
-    
+
     <script src="scripts/CONFIG.js" defer></script>
     <script src="scripts/index.js" defer></script>
   </head>
 
-  <body>
+  <body onload="displayCONFIG()">
 
     <main>
       <div>
@@ -47,6 +47,12 @@
       <button class="btn btn-outline-primary" onclick="optimize()">Optimize</button>
       <button class="btn btn-outline-success" onclick="preview()">Preview the results</button>
 
+      <div class="input1">
+	      <table id="tableConfig"></table>
+	    </div>
+	    <div class="input2">
+	  	  <button onclick="update_config()">Update</button>
+	    </div>
       <div id="reactor-container"></div>
     </main>
 
