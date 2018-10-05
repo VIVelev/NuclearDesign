@@ -30,24 +30,24 @@ class Simulation {
     }
 
     // Fill board with moderator
-    fillModerator() {
+    fillModerator(grid) {
         for (var x = 0; x < this.nCols; x++) {
             for (var y = 0; y < this.nRows; y++) {
-                this.grid[x][y] = new Moderator(x, y, this);
+                grid[x][y] = new Moderator(x, y, this);
             }
         }
     }
 
     // Fill edges with walls
-    fillEdges() {
+    fillEdges(grid) {
         for (var x = 0; x < this.nCols; x++) {
-            this.grid[x][0] = new Wall(x, 0, this);
-            this.grid[x][this.nRows-1] = new Wall(x, this.nRows-1, this);
+            grid[x][0] = new Wall(x, 0, this);
+            grid[x][this.nRows-1] = new Wall(x, this.nRows-1, this);
         }
 
         for (var y = 1; y < this.nRows-1; y++) {
-            this.grid[0][y] = new Wall(0, y, this);
-            this.grid[this.nCols-1][y] = new Wall(this.nCols-1, y, this);
+            grid[0][y] = new Wall(0, y, this);
+            grid[this.nCols-1][y] = new Wall(this.nCols-1, y, this);
         }
     }
 
@@ -229,5 +229,73 @@ class Simulation {
         }
         
         return this.neutrons.length / sumStdDev;
+    }
+
+    evaluateTilesPosition() {
+        var score, targetGrid, x, y,
+        score = 0;
+        targetGrid = this.getTargetGrid();
+    }
+
+    getTargetGrid() {
+        var grid, x, y;
+
+        grid = new Array(this.nCols);
+        for (var i = 0; i < this.nCols; i++) {
+            grid[i] = new Array(this.nRows);
+        }
+
+        this.fillModerator(grid);
+        this.fillEdges(grid);
+
+        // Top right corner
+        x = floor(this.nCols / 2);
+        while (x < this.nCols) {
+            y = floor(this.nRows / 2);
+            while (y > 0) {
+                grid[x][y] = new Fuel(x, y, this);
+                y -= 2;
+            }
+        
+            x += 2;
+        }
+
+        // Top left corner
+        x = floor(this.nCols / 2);
+        while (x > 0) {
+            y = floor(this.nRows / 2);
+            while (y > 0) {
+                grid[x][y] = new Fuel(x, y, this);
+                y -= 2;
+            }
+
+            x -= 2;
+        }
+
+        // Bottom right corner
+        x = floor(this.nCols / 2);
+        while (x < this.nCols) {
+            y = floor(this.nRows / 2);
+            while (y < this.nRows) {
+                grid[x][y] = new Fuel(x, y, this);
+                y += 2;
+            }
+
+            x += 2;
+        }
+        
+        // Bottom left corner
+        x = floor(this.nCols / 2);
+        while (x > 0) {
+            y = floor(this.nRows / 2);
+            while (y < this.nRows) {
+                grid[x][y] = new Fuel(x, y, this);
+                y += 2;
+            }
+
+            x -= 2;
+        }
+
+        return grid;
     }
 }
