@@ -256,64 +256,77 @@ class Simulation {
         }
 
         this.fillModerator(grid);
+        var mid = floor(this.nRows/2);
 
-        // Main diagonal
-        for (x = 0; x < this.nCols; x++) {
-            grid[x][x] = new Fuel(x, x, this);
+        for(var i=0;i<=mid;i++){
+            console.log("1");
+            grid[mid+i-1][i] = new Fuel(mid+i-1 , i , this);
+            grid[mid-i-1][i] = new Fuel(mid-i -1, i , this);
+            grid[mid-i-1][this.nRows-i-1] = new Fuel(mid-i-1 , this.nRows-i-1 , this);
+            grid[mid+i-1][this.nRows-i-1] = new Fuel(mid+i-1 , this.nRows-i-1 , this);
+
         }
 
-        // Other diagonal
-        for (x = this.nCols-1; x >= 0; x--) {
-            grid[x][this.nRows-1-x] = new Fuel(x, this.nRows-1-x, this);
-        }
 
-        // Top right corner
-        x = floor(this.nCols / 2);
-        while (x < this.nCols) {
-            y = floor(this.nRows / 2);
-            while (y > 0) {
-                grid[x][y] = new Fuel(x, y, this);
-                y -= 4;
-            }
-            
-            x += 4;
-        }
 
-        // Top left corner
-        x = floor(this.nCols / 2);
-        while (x > 0) {
-            y = floor(this.nRows / 2);
-            while (y > 0) {
-                grid[x][y] = new Fuel(x, y, this);
-                y -= 4;
-            }
 
-            x -= 4;
-        }
-
-        // Bottom right corner
-        x = floor(this.nCols / 2);
-        while (x < this.nCols) {
-            y = floor(this.nRows / 2);
-            while (y < this.nRows) {
-                grid[x][y] = new Fuel(x, y, this);
-                y += 4;
-            }
-
-            x += 4;
-        }
-
-        // Bottom left corner
-        x = floor(this.nCols / 2);
-        while (x > 0) {
-            y = floor(this.nRows / 2);
-            while (y < this.nRows) {
-                grid[x][y] = new Fuel(x, y, this);
-                y += 4;
-            }
-
-            x -= 4;
-        }
+        // // Main diagonal
+        // for (x = 0; x < this.nCols; x++) {
+        //     grid[x][x] = new Fuel(x, x, this);
+        // }
+        //
+        // // Other diagonal
+        // for (x = this.nCols-1; x >= 0; x--) {
+        //     grid[x][this.nRows-1-x] = new Fuel(x, this.nRows-1-x, this);
+        // }
+        //
+        // // Top right corner
+        // x = floor(this.nCols / 2);
+        // while (x < this.nCols) {
+        //     y = floor(this.nRows / 2);
+        //     while (y > 0) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y -= 4;
+        //     }
+        //
+        //     x += 4;
+        // }
+        //
+        // // Top left corner
+        // x = floor(this.nCols / 2);
+        // while (x > 0) {
+        //     y = floor(this.nRows / 2);
+        //     while (y > 0) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y -= 4;
+        //     }
+        //
+        //     x -= 4;
+        // }
+        //
+        // // Bottom right corner
+        // x = floor(this.nCols / 2);
+        // while (x < this.nCols) {
+        //     y = floor(this.nRows / 2);
+        //     while (y < this.nRows) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y += 4;
+        //     }
+        //
+        //     x += 4;
+        // }
+        //
+        // // Bottom left corner
+        // x = floor(this.nCols / 2);
+        // while (x > 0) {
+        //     y = floor(this.nRows / 2);
+        //     while (y < this.nRows) {
+        //         grid[x][y] = new Fuel(x, y, this);
+        //         y += 4;
+        //     }
+        //
+        //     x -= 4;
+        // }
 
         this.fillEdges(grid);
         return grid;
