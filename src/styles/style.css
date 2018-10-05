@@ -4,7 +4,7 @@ main {
 }
 
 #reactor-container {
-    left: 35%;
+    left: 50%;
     position: relative;
 }
 
@@ -15,10 +15,10 @@ ul {
 .input1{
 	position: fixed;
     bottom: 0%;
-    right: 5%;
+    left: 2%;
     margin-bottom: 5%;
-    width: 400px;
-    height: 80%;
+    width: 330px;
+    height: 73%;
     overflow: auto;
 
     
