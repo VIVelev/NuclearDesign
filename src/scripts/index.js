@@ -50,7 +50,7 @@ function update_config(){
     var  len = params.length;
     for(var i =0;i<len;i++){
         inputs = params[i].getAttribute("id");
-        CONFIG[inputs] = params[i].value;
+        CONFIG[inputs] = parseFloat(params[i].value);
 
     }
     displayCONFIG();
@@ -60,8 +60,8 @@ function preview() {
     canPreview = true;
 
     sim = new Simulation();
-    // sim.createReactorFromGenome(pop.bestGenome);
-    sim.grid = sim.getTargetGrid();
+    sim.createReactorFromGenome(pop.bestGenome);
+    // sim.grid = sim.getTargetGrid();
 }
 
 
