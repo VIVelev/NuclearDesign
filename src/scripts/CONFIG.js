@@ -68,8 +68,8 @@ const RENDER = {
     nSize: 10,          // diameter of each neutron
     gLayers: 5,         // number of layers for glow effect
     gSize: 60,          // diameter of glow effect
-    canvasWidth: 300,   // width of canvas
-    canvasHeight: 300   // height of canvas
+    canvasWidth: 500,   // width of canvas
+    canvasHeight: 500   // height of canvas
 };
 
 
