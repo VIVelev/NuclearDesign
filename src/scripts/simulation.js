@@ -128,7 +128,7 @@ class Simulation {
         for (var i = 0; i < this.neutrons.length; i++) {
             this.neutrons[i].update();
             if (this.neutrons[i].checkEdges()) {
-                this.removeNeutron(neutrons[i]);
+                this.removeNeutron(this.neutrons[i]);
                 continue;
             }
     
@@ -193,20 +193,41 @@ class Simulation {
         return tilesCount;
     }
 
+    getMeanNeutronPos() {
+        var meanPos, i;
+
+        meanPos = new p5.Vector(0, 0);
+        for (i = 0; i < this.neutrons.length; i++) {
+            meanPos.add(this.neutrons[i].pos);
+        }
+
+        return meanPos.div(this.neutrons.length+pow(10, -9));
+    }
+
+    getStdDevNeutrons() {
+        var meanPos, sumSqDiff, i, diffVec;        
+        meanPos = this.getMeanNeutronPos();
+        sumSqDiff = 0;
+
+        for (i = 0; i < this.neutrons.length; i++) {
+             diffVec = this.neutrons[i].pos.sub(meanPos);
+             sumSqDiff += diffVec.magSq();
+        }
+
+        return sqrt(sumSqDiff/(this.neutrons.length+pow(10, -9)));
+    }
+
     evaluateGenome(genome) {
         this.createReactorFromGenome(genome);
-        var tilesCount, totalHeat, t;
+        var t, sumStdDev;
+        t = sumStdDev = 0;
 
-        tilesCount = this.getTilesCount();
-        totalHeat = this.getTotalHeat();
-        t = 1;
-
-        while (totalHeat <= CONFIG.heatMax && t <= CONFIG.evaluationLength) {
-            this.update()
-            totalHeat = this.getTotalHeat();
+        while (t < CONFIG.evaluationLength) {
+            this.update();
             t++;
+            sumStdDev += this.getStdDevNeutrons();
         }
         
-        return (t + symmetricMetric(genome.grid)*100) / (tilesCount.fuels + 1);
+        return this.neutrons.length / sumStdDev;
     }
 }
