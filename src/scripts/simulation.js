@@ -260,13 +260,41 @@ class Simulation {
 
         for(var i=0;i<=mid;i++){
             console.log("1");
-            grid[mid+i-1][i] = new Fuel(mid+i-1 , i , this);
-            grid[mid-i-1][i] = new Fuel(mid-i -1, i , this);
-            grid[mid-i-1][this.nRows-i-1] = new Fuel(mid-i-1 , this.nRows-i-1 , this);
-            grid[mid+i-1][this.nRows-i-1] = new Fuel(mid+i-1 , this.nRows-i-1 , this);
+            grid[mid+i][i+1] = new Fuel(mid+i, i+1 , this);
+            grid[mid-i][i+1] = new Fuel(mid-i, i+1, this);
+            grid[mid-i][this.nRows-i-2] = new Fuel(mid-i , this.nRows-i-2 , this);
+            grid[mid+i][this.nRows-i-2] = new Fuel(mid+i , this.nRows-i-2 , this);
 
         }
 
+        for(var i=0;i<mid-1;i++){
+            console.log("1");
+            grid[mid+i][i+2] = new ControlRod(mid+i, i+2, this);
+            grid[mid-i][i+2] = new ControlRod(mid-i, i+2, this);
+            grid[mid-i][this.nRows-i-3] = new ControlRod(mid-i, this.nRows-i-3 , this);
+            grid[mid+i][this.nRows-i-3] = new ControlRod(mid+i, this.nRows-i-3, this);
+
+        }
+
+        for(var i=0;i<mid-3;i++){
+            console.log("1");
+            grid[mid+i][i+4] = new Fuel(mid+i, i+4 , this);
+            grid[mid-i][i+4] = new Fuel(mid-i, i+4, this);
+            grid[mid-i][this.nRows-i-5] = new Fuel(mid-i , this.nRows-i-5 , this);
+            grid[mid+i][this.nRows-i-5] = new Fuel(mid+i , this.nRows-i-5 , this);
+
+        }
+
+        for(var i=0;i<mid-4;i++){
+            console.log("1");
+            grid[mid+i][i+5] = new ControlRod(mid+i, i+5 , this);
+            grid[mid-i][i+5] = new ControlRod(mid-i, i+5, this);
+            grid[mid-i][this.nRows-i-6] = new ControlRod(mid-i , this.nRows-i-6 , this);
+            grid[mid+i][this.nRows-i-6] = new ControlRod(mid+i , this.nRows-i-6 , this);
+
+        }
+
+        grid[mid][mid] = new Fuel(mid, mid, this);
 
 
 
