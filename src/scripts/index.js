@@ -52,11 +52,9 @@ function update_config(){
         inputs = params[i].getAttribute("id");
         var type = typeof(CONFIG[inputs]);
         if (type == "number") CONFIG[inputs] = parseFloat(params[i].value);
-        //if (type == "int") CONFIG[inputs] = parseInt(params[i].value);
         else if (type == "boolean") CONFIG[inputs] = (params[i].value == "true");
         else if (type == "object") {
             CONFIG[inputs] = params[i].value.split(",").map(parseFloat);
-            console.log(CONFIG[inputs]);
         }
         else CONFIG[inputs] = params[i].value;
     }

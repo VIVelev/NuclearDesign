@@ -41,8 +41,8 @@ class Genome {
 
         x = floor(random(this.simulation.nCols));
         y = floor(random(this.simulation.nRows));
-        xStop = floor(random(x, this.simulation.nCols));
-        yStop = floor(random(y, this.simulation.nRows));
+        xStop = x + CONFIG.blockWidth;
+        yStop = y + CONFIG.blockHeight;
 
         if (floor(random(2))) {
             baseGrid = Array.from(this.grid);
