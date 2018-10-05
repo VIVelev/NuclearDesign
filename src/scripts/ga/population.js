@@ -95,13 +95,13 @@ class Population {
 
     getStandardDeviation() {
         var meanFitness = this.getMeanFitness();
-        var sumOfSquaredDifferences = 0;
+        var stdDev = 0;
 
         for (var i = 0; i < CONFIG.popSize; i++) {
-            sumOfSquaredDifferences += pow(this.population[i].fitness - meanFitness, 2);
+            stdDev += pow(this.population[i].fitness - meanFitness, 2);
         }
 
-        return sqrt(sumOfSquaredDifferences/CONFIG.popSize);
+        return sqrt(stdDev/CONFIG.popSize);
     }
 
     updateBestGenome() {
