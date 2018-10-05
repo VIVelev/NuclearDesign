@@ -27,7 +27,7 @@ function optimize() {
 
 function displayCONFIG() {
     config = document.getElementById("tableConfig");
-    //config.innerHTML = "";
+    config.innerHTML = "";
     for (var prop in CONFIG) {
         newRow = document.createElement("tr")
         newTextCell = document.createElement("td");
