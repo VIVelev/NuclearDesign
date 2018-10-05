@@ -64,7 +64,8 @@ function preview() {
     canPreview = true;
 
     sim = new Simulation();
-    sim.createReactorFromGenome(pop.bestGenome);
+    // sim.createReactorFromGenome(pop.bestGenome);
+    sim.grid = sim.getTargetGrid();
 }
 
 
