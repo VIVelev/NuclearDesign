@@ -59,7 +59,7 @@ class Simulation {
             }
         }
 
-        this.fillEdges();
+        this.fillEdges(this.grid);
     }
 
     // Returns the reactor's heat
@@ -228,13 +228,23 @@ class Simulation {
             sumStdDev += this.getStdDevNeutrons();
         }
         
-        return this.neutrons.length / sumStdDev;
+        return pow(this.evaluateTilesPosition(), 2) + this.neutrons.length / sumStdDev;
     }
 
     evaluateTilesPosition() {
         var score, targetGrid, x, y,
         score = 0;
         targetGrid = this.getTargetGrid();
+
+        for (x = 0; x < this.nCols; x++) {
+            for (y = 0; y < this.nRows; y++) {
+                if (this.grid[x][y].__proto__.constructor == targetGrid[x][y].__proto__.constructor) {
+                    score++;
+                }
+            }
+        }
+
+        return score;
     }
 
     getTargetGrid() {
