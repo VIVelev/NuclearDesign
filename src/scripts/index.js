@@ -27,7 +27,7 @@ function optimize() {
 
 function displayCONFIG() {
     config = document.getElementById("tableConfig");
-    // config.innerHTML = "";
+    config.innerHTML = "";
     keys = Object.keys(CONFIG);
     var len = keys.length;
     for (var i = 0; i < 5; i++) {
@@ -48,6 +48,7 @@ function displayCONFIG() {
         config.appendChild(newRow);
     }
 }
+
 function update_config(){
     params = document.getElementsByClassName("param");
     var  len = params.length;
@@ -58,6 +59,7 @@ function update_config(){
     }
     displayCONFIG();
 }
+
 function preview() {
     canPreview = true;
 
