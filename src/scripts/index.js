@@ -50,8 +50,13 @@ function update_config(){
     var  len = params.length;
     for(var i =0;i<len;i++){
         inputs = params[i].getAttribute("id");
-        CONFIG[inputs] = parseFloat(params[i].value);
-
+        var type = typeof(CONFIG[inputs]);
+        if (type == "number") CONFIG[inputs] = parseFloat(params[i].value);
+        else if (type == "boolean") CONFIG[inputs] = (params[i].value == "true");
+        else if (type == "object") {
+            CONFIG[inputs] = params[i].value.split(",").map(parseFloat);
+        }
+        else CONFIG[inputs] = params[i].value;
     }
     displayCONFIG();
 }
@@ -60,8 +65,8 @@ function preview() {
     canPreview = true;
 
     sim = new Simulation();
-    sim.createReactorFromGenome(pop.bestGenome);
-    // sim.grid = sim.getTargetGrid();
+    // sim.createReactorFromGenome(pop.bestGenome);
+    sim.grid = sim.getTargetGrid();
 }
 
 

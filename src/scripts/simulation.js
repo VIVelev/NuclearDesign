@@ -256,7 +256,16 @@ class Simulation {
         }
 
         this.fillModerator(grid);
-        this.fillEdges(grid);
+
+        // Main diagonal
+        for (x = 0; x < this.nCols; x++) {
+            grid[x][x] = new Fuel(x, x, this);
+        }
+
+        // Other diagonal
+        for (x = this.nCols-1; x >= 0; x--) {
+            grid[x][this.nRows-1-x] = new Fuel(x, this.nRows-1-x, this);
+        }
 
         // Top right corner
         x = floor(this.nCols / 2);
@@ -264,10 +273,10 @@ class Simulation {
             y = floor(this.nRows / 2);
             while (y > 0) {
                 grid[x][y] = new Fuel(x, y, this);
-                y -= 2;
+                y -= 4;
             }
-
-            x += 2;
+            
+            x += 4;
         }
 
         // Top left corner
@@ -276,10 +285,10 @@ class Simulation {
             y = floor(this.nRows / 2);
             while (y > 0) {
                 grid[x][y] = new Fuel(x, y, this);
-                y -= 2;
+                y -= 4;
             }
 
-            x -= 2;
+            x -= 4;
         }
 
         // Bottom right corner
@@ -288,10 +297,10 @@ class Simulation {
             y = floor(this.nRows / 2);
             while (y < this.nRows) {
                 grid[x][y] = new Fuel(x, y, this);
-                y += 2;
+                y += 4;
             }
 
-            x += 2;
+            x += 4;
         }
 
         // Bottom left corner
@@ -300,12 +309,13 @@ class Simulation {
             y = floor(this.nRows / 2);
             while (y < this.nRows) {
                 grid[x][y] = new Fuel(x, y, this);
-                y += 2;
+                y += 4;
             }
 
-            x -= 2;
+            x -= 4;
         }
 
+        this.fillEdges(grid);
         return grid;
     }
 }
