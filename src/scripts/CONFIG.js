@@ -44,6 +44,9 @@ var CONFIG = {
 
     crossoverType: "byTile",  // "byTile" or "byBlock"
 
+    blockWidth: 5,            // number of tiles
+    blockHeight: 5,           // number of tiles  
+
     evaluationLength: 20,    // how many ticks an evaluation takes
     maxGeneration: 50,       // the maximum generation
 
