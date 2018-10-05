@@ -15,14 +15,20 @@ ul {
 .input1{
 	position: fixed;
     bottom: 0%;
-    left: 5%;
+    right: 5%;
+    margin-bottom: 5%;
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+
     
 }
 
 .input2{
 	position: fixed;
-    bottom: 20%;
-    right: 10%;
+    bottom: 10%;
+    right: 35%;
+
     
 }
 

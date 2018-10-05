@@ -27,24 +27,20 @@ function optimize() {
 
 function displayCONFIG() {
     config = document.getElementById("tableConfig");
-    config.innerHTML = "";
-    keys = Object.keys(CONFIG);
-    var len = keys.length;
-    for (var i = 0; i < 5; i++) {
-        newRow = document.createElement("tr");
-        for (var j = i; j < len - 1; j += 5) {
-            newTextCell = document.createElement("td");
-            newTextCell.innerHTML = keys[j];
-            newInputCell = document.createElement("td");
-            newInput = document.createElement("input");
-            newInput.defaultValue = CONFIG[keys[j]];
-            newInput.setAttribute("class", "param");
-            newInput.setAttribute("type", "text");
-            newInput.setAttribute("id", keys[j]);
-            newInputCell.appendChild(newInput);
-            newRow.appendChild(newTextCell);
-            newRow.appendChild(newInputCell);
-        }
+    //config.innerHTML = "";
+    for (var prop in CONFIG) {
+        newRow = document.createElement("tr")
+        newTextCell = document.createElement("td");
+        newTextCell.innerHTML = prop;
+        newInputCell = document.createElement("td");
+        newInput = document.createElement("input");
+        newInput.defaultValue = CONFIG[prop];
+        newInput.setAttribute("class", "param");
+        newInput.setAttribute("type", "text");
+        newInput.setAttribute("id", prop);
+        newInputCell.appendChild(newInput);
+        newRow.appendChild(newTextCell);
+        newRow.appendChild(newInputCell);
         config.appendChild(newRow);
     }
 }
